@@ -1,0 +1,37 @@
+import {
+    FETCH_RENTALS,
+    FETCH_RENTALS_BY_ID
+} from "../actions/types";
+
+
+const initialState = {
+    rentals: {
+        data: []
+    },
+    rental: {
+        data: {}
+    }
+
+}
+
+export const rentalReducer = (state = initialState.rentals, action) => {
+    switch (action.type) {
+        case FETCH_RENTALS:
+            return {
+                ...state, data: action.rentals
+            };
+        default:
+            return state;
+    };
+};
+
+export const selectedRentalReducer = (state = initialState.rental, action) => {
+    switch (action.type) {
+        case FETCH_RENTALS_BY_ID:
+            return {
+                ...state, data: action.rental
+            };
+        default:
+            return state;
+    };
+};
