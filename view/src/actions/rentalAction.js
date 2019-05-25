@@ -1,6 +1,6 @@
 import {
   FETCH_RENTALS,
-  FETCH_RENTALS_BY_ID
+  FETCH_RENTALS_BY_ID_SUCCESS
 } from "./types";
 
 
@@ -67,10 +67,20 @@ export const fetchRentals = () => {
 };
 
 export const fetchRentalsById = (id) => {
-  const rentalId = parseInt(id);  
-  let rental = rentals.find(rental => rental.id === rentalId);
-  return {
-    type: FETCH_RENTALS_BY_ID,
-    rental: rental
+  return function (dispatch) {
+    // simulate server call
+    setTimeout(() => {
+      const rentalId = parseInt(id);
+      let rental = rentals.find(rental => rental.id === rentalId);
+      dispatch(fetchRentalsByIdSuccess(rental));
+    }, 5000);
   }
 };
+
+
+const fetchRentalsByIdSuccess = (rental) => {
+  return {
+    type: FETCH_RENTALS_BY_ID_SUCCESS,
+    rental
+  }
+}

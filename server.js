@@ -5,8 +5,9 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 // importing the router of USERS
-const users = require("./routes/api/users");
-const profile = require("./routes/api/profile");
+const usersRoutes = require("./routes/api/users");
+const profileRoutes = require("./routes/api/profile");
+const rentalRoutes  = require("./routes/api/rental");
 
 const app = express();
 
@@ -32,9 +33,12 @@ app.use(passport.initialize());
 
 require("./config/passport")(passport);
 
-app.use("/api/users", users); // use Router() =>middleware (const router = express.Router());
-app.use("/api/profile", profile);
+app.use("/api/users", usersRoutes); // use Router() =>middleware (const router = express.Router());
+app.use("/api/profile", profileRoutes);
+app.use("/api/rentals", rentalRoutes);
 
+
+ 
 // if production then server statice production
 if (process.env.NODE_ENV === "production") {
     // set static folder

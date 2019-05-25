@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import RentalList from "../components/rental/RentalList";
+import RentalListing from "../components/rental/rental-Listing/RentalListing";
 
 const Rental = () => {
   return (
     <>
-   <RentalList/>
+   <RentalListing/>
     </>
   );
 };

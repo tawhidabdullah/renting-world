@@ -1,24 +1,15 @@
 import React, { Component } from 'react'; 
 import { connect } from "react-redux";
-import RentalCard from "./RentalCard";
-import { fetchRentals } from "../../actions/rentalAction";
+import { fetchRentals } from "../../../actions/rentalAction";
+import RentalList from "./RentalList";
 
 
 
 // IMPORT CSS
-import "../../styles/rental/_rentalListing.scss";
+import "../../../styles/rental/_rentalListing.scss";
 
 
-class RentalList extends Component {
-    state = {
-       
-    }; 
-
-    rentalMapList = () => {
-      return this.props.rentals.map((rental,index) => {
-            return <RentalCard  key={index} rental={rental} />; 
-        }); 
-    }; 
+class RentalListing extends Component {
 
     componentWillMount(){
         this.props.dispatch(fetchRentals()); 
@@ -31,9 +22,7 @@ class RentalList extends Component {
         }}>
         <section id='rentalListing'>
             <h1 className='page-title'>Your Home All Around the World</h1>
-            <div className='row'>
-                {this.rentalMapList()}
-            </div>
+           <RentalList rentals={this.props.rentals} />
         </section>
         </div>
         )
@@ -47,4 +36,4 @@ const mapStateToProps = (state) => {
 }; 
 
 
-export default connect(mapStateToProps)(RentalList); 
+export default connect(mapStateToProps)(RentalListing); 
