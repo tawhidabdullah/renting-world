@@ -25,7 +25,7 @@ import BackDrop from "../components/BackDrop/BackDrop";
 import Rental from "../pages/Rental";
 // import Error from "./pages/Error";
 
-import RentalDetail from "../components/rental/RentalDetail";
+import RentalDetail from "../components/rental/rentalDetail/RentalDetail";
 
 
 // CHECK FOR TOKEN
