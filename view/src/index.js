@@ -4,7 +4,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App/App";
 import * as serviceWorker from "./serviceWorker";
 import "font-awesome/css/font-awesome.min.css";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css"; 
+import "bootstrap-daterangepicker/daterangepicker.css";
+
+
 ReactDOM.render(
   <Router>
     <App />

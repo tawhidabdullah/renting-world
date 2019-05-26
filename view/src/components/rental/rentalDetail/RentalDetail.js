@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchRentalsById } from "../../../actions/rentalAction";
 import RentalDetailInfo from "./RentalDetailInfo";
 import RentalMap from "./RentalMap";
+import Booking from "../../booking/Booking";
 
 
 // import css
@@ -37,7 +38,7 @@ class RentalDetail extends Component {
                          <div className='col-md-8'>
                              <RentalDetailInfo rental = {this.props.rental} />
                          </div>
-                         <div className='col-md-4'> BOOKING</div>
+                         <div className='col-md-4'> <Booking rental={rental} /></div>
                          </div>
                      </div>
                  </section>

@@ -1,5 +1,6 @@
 const Booking = require("../models/booking");
 const Rental = require("../models/rental");
+const User = require("../models/user");
 
 // import booking validation
 const validateBooking = require('../validation/booking');
@@ -49,9 +50,35 @@ exports.createBooking = (req, res) => {
 
             if (validateBooking(booking, rental)) {
                 booking.user = user;
+                booking.rental = rental;
                 rental.bookings.push(booking);
-                rental.save();
-                booking.save();
+                booking.save((err) => {
+                    if (err) {
+                        return res.status(422).send({
+                            errors: "something went wrong from controller/bookings"
+                        })
+                    }
+
+                    rental.save();
+
+                    // update user with bookings
+                    User.update({
+                        _id: user
+                    }, {
+                        $push: {
+                            bookings: booking
+                        }   
+                    });
+
+
+                    return res.json({
+                        startAt: booking.startAt,
+                        endAt: booking.endAt
+                    });
+
+                });
+
+
             } else {
                 return res.status(422).send({
                     errors: [{

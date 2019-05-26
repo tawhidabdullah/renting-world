@@ -13,7 +13,8 @@ const rentalSchema = new Schema({
     description: { type: String, required: true },
     dailyRate: Number,
     createdAt: { type: Date, default: Date.now },
-    bookings: [{type: Schema.Types.ObjectId, ref: 'bookings'}]
+    bookings: [{type: Schema.Types.ObjectId, ref: 'bookings'}],
+    user: {type: Schema.Types.ObjectId , ref: 'users'}
 });
 
 // with rental schema , load the rental model for rental collection
