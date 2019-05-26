@@ -29,12 +29,12 @@
     "express": "^4.16.4",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
     "mongoose": "^5.5.7",
     "nodemon": "^1.19.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "react-bootstrap-daterangepicker": "^4.1.0",
+    "react-toastify": "^4.0.0",
     "request": "^2.88.0",
     "validator": "^10.11.0"
   }

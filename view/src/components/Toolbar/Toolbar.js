@@ -55,10 +55,10 @@ class Toolbar extends Component {
                 <div
                   className={`dropdownx ${
                     this.state.dropdownToggle ? "dropdown--active" : "deactive"
-                  }`}
+                    }`}
                 >
                   <div className="dropdown__list">
-                    <a className="dropdown__list-item">
+                    <a className="dropdown__list-item" >
                       <span className="dropdown__icon">
                         <i className="fa fa-user" />
                       </span>

@@ -2,6 +2,7 @@ const Booking = require("../models/booking");
 const Rental = require("../models/rental");
 const User = require("../models/user");
 
+
 // import booking validation
 const validateBooking = require('../validation/booking');
 
@@ -9,6 +10,7 @@ const validateBooking = require('../validation/booking');
 // @decription create booking
 // @access Private
 exports.createBooking = (req, res) => {
+    console.log
     const {
         startAt,
         endAt,
@@ -19,6 +21,8 @@ exports.createBooking = (req, res) => {
     } = req.body;
     const user = req.user.id;
 
+    console.log("endAt",endAt);
+
     const booking = new Booking({
         startAt,
         endAt,
@@ -28,10 +32,12 @@ exports.createBooking = (req, res) => {
         rental
     });
 
+    console.log('beforerental' ,rental); 
+
 
     Rental.findById(rental._id)
-        .populate('bookings')
         .populate('user')
+        .populate('bookings')
         .exec((err, rental) => {
             if (err) {
                 return res.status(422).send({
@@ -39,21 +45,23 @@ exports.createBooking = (req, res) => {
                 })
             }
 
-            if (rental.user.id === user) {
-                return res.status(422).send({
-                    errors: [{
-                        title: "Invalid User",
-                        detail: "cannot create bookings on your own rentals!"
-                    }]
-                });
-            }
+            // if (rental.user._id === user) {
+            //     return res.status(422).send({
+            //         errors: [{
+            //             title: "Invalid User",
+            //             detail: "cannot create bookings on your own rentals!"
+            //         }]
+            //     });
+            // }
 
+            // console.log(rental);
             if (validateBooking(booking, rental)) {
                 booking.user = user;
                 booking.rental = rental;
                 rental.bookings.push(booking);
                 booking.save((err) => {
                     if (err) {
+                        console.log(err); 
                         return res.status(422).send({
                             errors: "something went wrong from controller/bookings"
                         })
@@ -67,7 +75,7 @@ exports.createBooking = (req, res) => {
                     }, {
                         $push: {
                             bookings: booking
-                        }   
+                        }
                     });
 
 

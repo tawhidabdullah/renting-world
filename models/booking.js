@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 // creat user schema
 const bookingSchema = new Schema({
    startAt: {type:Date,required: "Starting date is required"},
-   endtAt: {type:Date,required: "Endting date is required"},
+   endAt: {type:Date,required: "Endting date is required"},
    totalPrice: Number,
    days: Number,
    guests: Number,
