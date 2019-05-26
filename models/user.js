@@ -24,12 +24,8 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
-  products: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Product"
-    }
-  ]
+  bookings: [{type: Schema.Types.ObjectId, ref: 'bookings'}],
+  rentals: [{type: Schema.Types.ObjectId, ref: 'rentals'}]
 });
 
 // with user schema , load the user model for User collection

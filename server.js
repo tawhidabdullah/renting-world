@@ -13,6 +13,7 @@ const Rental = require("./models/rental");
 const usersRoutes = require("./routes/api/users");
 const profileRoutes = require("./routes/api/profile");
 const rentalRoutes = require("./routes/api/rental");
+const bookingRoutes = require("./routes/api/bookings");
 
 const app = express();
 
@@ -95,7 +96,7 @@ require("./config/passport")(passport);
 app.use("/api/users", usersRoutes); // use Router() =>middleware (const router = express.Router());
 app.use("/api/profile", profileRoutes);
 app.use("/api/rentals", rentalRoutes);
-
+app.use("/api/bookings", bookingRoutes);
 
 
 // if production then server statice production

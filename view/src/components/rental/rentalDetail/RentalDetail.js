@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { fetchRentalsById } from "../../../actions/rentalAction";
 import RentalDetailInfo from "./RentalDetailInfo";
-import { MapWithAMarker } from "../../../components/map/GoogleMap";
+import RentalMap from "./RentalMap";
 
 
 // import css
@@ -16,7 +16,7 @@ class RentalDetail extends Component {
     }
     render() {
         const rental = this.props.rental; 
-        const {image,_id} = rental;
+        const {image,_id,city,street} = rental;
         if(_id){
             return (
              <div className='container'>
@@ -27,16 +27,11 @@ class RentalDetail extends Component {
                              <img src={image} alt=''></img>
                          </div>
                          <div className='col-md-6'>
-                         <MapWithAMarker
-                            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzoIBnGmTZPsKLJ-1RBVk3gKO6gS6BHLU&libraries=geometry,drawing,places"
-                            loadingElement={<div style={{ height: `100%` }} />}
-                            containerElement={<div style={{ height: `360px` }} />}
-                            mapElement={<div style={{ height: `100%` }} />}
-                            />
+                         <RentalMap location={`${city}, ${street}`} />
                          </div>
                          </div>
                      </div>
- 
+                        
                      <div className='details-section'>
                          <div className='row'>
                          <div className='col-md-8'>
