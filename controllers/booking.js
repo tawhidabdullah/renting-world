@@ -21,7 +21,7 @@ exports.createBooking = (req, res) => {
     } = req.body;
     const user = req.user.id;
 
-    console.log("endAt",endAt);
+    console.log("endAt", endAt);
 
     const booking = new Booking({
         startAt,
@@ -31,10 +31,6 @@ exports.createBooking = (req, res) => {
         days,
         rental
     });
-
-    console.log('beforerental' ,rental); 
-
-
     Rental.findById(rental._id)
         .populate('user')
         .populate('bookings')
@@ -45,14 +41,15 @@ exports.createBooking = (req, res) => {
                 })
             }
 
-            // if (rental.user._id === user) {
-            //     return res.status(422).send({
-            //         errors: [{
-            //             title: "Invalid User",
-            //             detail: "cannot create bookings on your own rentals!"
-            //         }]
-            //     });
-            // }
+
+            if (rental.user._id.toString() === user) {
+                return res.status(404).send({
+                    errors: [{
+                        title: "Invalid User",
+                        detail: "cannot create bookings on your own rentals!"
+                    }]
+                });
+            }
 
             // console.log(rental);
             if (validateBooking(booking, rental)) {
@@ -61,7 +58,7 @@ exports.createBooking = (req, res) => {
                 rental.bookings.push(booking);
                 booking.save((err) => {
                     if (err) {
-                        console.log(err); 
+                        console.log(err);
                         return res.status(422).send({
                             errors: "something went wrong from controller/bookings"
                         })
@@ -99,3 +96,22 @@ exports.createBooking = (req, res) => {
         });
 
 };
+
+
+
+exports.manageBooking = (req, res) => {
+    const user = req.user.id;
+
+    Booking.where({
+            user
+        })
+        .populate('rental')
+        .exec((err, bookings) => {
+            if (err) {
+                return res.status(422).send({
+                    errors: "something went wrong from controller/rental managing bookings!"
+                })
+            }
+            return res.json(bookings);
+        });
+}

@@ -2,7 +2,7 @@ const Rental = require("../models/rental");
 const User = require("../models/user");
 
 // importing validation
-const validateRentalsInput = require("../validation/rental"); 
+const validateRentalsInput = require("../validation/rental");
 
 
 exports.get_single_rental_by_id = (req, res) => {
@@ -81,7 +81,7 @@ exports.createRental = (req, res) => {
         return res.status(400).json(errors);
     }
 
-    
+
     const {
         city,
         street,
@@ -104,13 +104,15 @@ exports.createRental = (req, res) => {
         shared,
         bedrooms,
         description,
-        dailyRate
+        dailyRate: parseInt(dailyRate)
     });
 
     rental.user = user;
 
-    Rental.create(rental, (err, newRental) => {
+    rental.save((err, newRental) => {
+        console.log('newRental', newRental);
         if (err) {
+            console.log(err);
             return res.status(404).send({
                 errors: [{
                     title: "Rental Error!"
@@ -131,3 +133,75 @@ exports.createRental = (req, res) => {
         return res.json(newRental);
     })
 };
+
+
+exports.deleteRental = (req, res) => {
+    const user = req.user.id;
+    Rental.findById(req.params.id)
+        .populate("user", '_id')
+        .populate({
+            path: "bookings",
+            select: "startAt",
+            match: {
+                startAt: {
+                    $gt: new Date()
+                }
+            }
+        })
+        .exec((err, rental) => {
+            if (err) {
+                return res.status(422).send({
+                    errors: "something went wrong from controller/rental"
+                })
+            }
+
+            if (rental.user._id.toString() !== user) {
+                return res.status(404).send({
+                    errors: [{
+                        title: "Invalid User",
+                        detail: "You are not rental owner!"
+                    }]
+                });
+            }
+
+            if (rental.booking.length > 0) {
+                return res.status(404).send({
+                    errors: [{
+                        title: "Active Bookings!",
+                        detail: "Cannot Delete rental with active bookings!"
+                    }]
+                });
+            }
+
+            rental.remove((err) => {
+                if (err) {
+                    return res.status(422).send({
+                        errors: "something went wrong from controller/rental after removing rental!"
+                    })
+                }
+            });
+
+            return res.json({
+                'status': "rental deleted"
+            })
+
+
+        })
+};
+
+exports.manageRentals = (req, res) => {
+    const user = req.user.id;
+
+    Rental.where({
+            user
+        })
+        .populate('bookings')
+        .exec((err, rentals) => {
+            if (err) {
+                return res.status(422).send({
+                    errors: "something went wrong from controller/rental manging rentals!"
+                })
+            }
+            return res.json(rentals);
+        });
+}

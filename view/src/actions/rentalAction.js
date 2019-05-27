@@ -3,7 +3,8 @@ import {
   FETCH_RENTALS_SUCCESS,
   FETCH_RENTALS_BY_ID_SUCCESS,
   FETCH_RENTALS_FAIL,
-  FETCH_RENTALS_INIT
+  FETCH_RENTALS_INIT,
+  GET_ERRORS
 } from "./types";
 
 
@@ -36,6 +37,17 @@ export const fetchRentals = (city) => dispatch => {
       return dispatch(fetchRentalsFail(response.data.errors));
     })
 }
+
+
+
+export const createRental = (newRental) => {
+  return axios.post('/api/rentals', newRental)
+      .then(res => res.data)
+      .catch(({
+          response
+      }) => Promise.reject(response.data.errors));
+};
+
 
 
 

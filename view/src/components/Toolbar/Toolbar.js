@@ -64,12 +64,24 @@ class Toolbar extends Component {
                       </span>
                       <span className="dropdown__title">my profile</span>
                     </a>
-                    <a className="dropdown__list-item">
+                    <Link to='/rentals/new' className="dropdown__list-item" style={{textDecoration: "none"}}>
                       <span className="dropdown__icon">
                         <i className="fa fa-clipboard" />
                       </span>
-                      <span className="dropdown__title">my account</span>
-                    </a>
+                      <span className="dropdown__title">create rental</span>
+                    </Link>
+                    <Link to='/rentals/new' className="dropdown__list-item" style={{textDecoration: "none"}}>
+                      <span className="dropdown__icon">
+                        <i className="fa fa-clipboard" />
+                      </span>
+                      <span className="dropdown__title">manage rentals</span>
+                    </Link>
+                    <Link to='/rentals/new' className="dropdown__list-item" style={{textDecoration: "none"}}>
+                      <span className="dropdown__icon">
+                        <i className="fa fa-clipboard" />
+                      </span>
+                      <span className="dropdown__title">manage bookings</span>
+                    </Link>
                     <a
                       className="dropdown__list-item"
                       onClick={this.onLogoutClick}

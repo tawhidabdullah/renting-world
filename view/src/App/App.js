@@ -12,8 +12,8 @@ import { setCurrentUser } from "../actions/authAction";
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
 
-// // import private route
-// import PrivateRoute from "./components/commonFeilds/privateRoute";
+// import private route
+import PrivateRoute from "../components/commonFeilds/privateRoute";
 
 // import Navbar from "./components/Navbar";
 import Toolbar from "../components/Toolbar/Toolbar";
@@ -28,6 +28,7 @@ import Rental from "../pages/rental/Rental";
 
 import RentalDetail from "../components/rental/rentalDetail/RentalDetail";
 import RentalSeachListing from "../components/rental/rental-Listing/RentalSeachListing";
+import RentalCreate from "../components/rental/rental-create/RentalCreate";
 
 // CHECK FOR TOKEN
 if (localStorage.jwttoken) {
@@ -81,7 +82,7 @@ class App extends Component {
           <main>
             <Switch>
               {/* <Route exact path="/" component={Home} /> */}
-              <Route exact path="/" render={()=> <Redirect to='/rentals' />} />
+              <Route exact path="/" render={() => <Redirect to='/rentals' />} />
               <Route exact path="/rentals" component={Rental} />
               <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
               <Route exact path="/rentals/:id" component={RentalDetail} />
@@ -89,6 +90,10 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               {/* <Route component={Error} /> */}
             </Switch>
+            <Switch>
+              <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
+            </Switch>
+
           </main>
         </div>
       </Provider>
