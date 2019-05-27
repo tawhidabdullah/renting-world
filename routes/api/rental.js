@@ -1,79 +1,35 @@
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
-const Rental = require("../../models/rental")
+const Rental = require("../../models/rental");
 
 
-router.get('/:id', (req, res) => {
-    const rentalId = req.params.id;
-
-    Rental.findById(rentalId)
-        .populate("user", 'name -_id')
-        .populate("bookings", "startAt endAt -_id")
-        .exec((err, rental) => {
-            if (err) {
-                res.status(404).send({
-                    errors: [{
-                        title: "Rental Error!"
-                    }, {
-                        detail: "Could not found Rental!"
-                    }]
-                })
-            }
-            return res.json(rental);
-        })
-});
+// import rental controllers 
+const rentalControllers = require("../../controllers/rental");
 
 
-router.get('/', (req, res) => {
-
-    const city = req.query.city;
-
-    if (city) {
-        Rental.find({
-                city: city.toLowerCase()
-            })
-            .select('-bookings')
-            .exec((err, filteredRentals) => {
-                if (err) {
-                    return res.status(404).send({
-                        errors: [{
-                            title: "Rental Error!"
-                        }, {
-                            detail: "Something went wrong for searching rental by city!"
-                        }]
-                    })
-                }
-                if (filteredRentals.length === 0) {
-                    return res.status(404).send({
-                        errors: [{
-                            title: "no rentals Found!"
-                        }, {
-                            detail: `There are no rentals for the city ${city}`
-                        }]
-                    })
-                }
-
-                return res.json(filteredRentals); 
 
 
-            })
+
+// @route POST /api/rentals/:id
+// @decription getting a single rental by id 
+// @access Public
+router.get('/:id', rentalControllers.get_single_rental_by_id);
 
 
-        return res.json({
-            city
-        });
-    } else {
-
-        Rental.find({})
-            .select('-bookings')
-            .exec((err, rentals) => {
-                return res.json(rentals);
-            })
-    }
-
-});
+// @route GET /api/rentals
+// @decription get all the rentals if we have query-city or get all the rentals 
+// @access Public
+router.get('/', rentalControllers.getRental_OR_getRentalsByQueryCity);
 
 
+// @route POST /api/rentals
+// @decription Create rentals  
+// @access Private
+router.post('/', passport.authenticate("jwt", {
+        session: false
+    }),
+    rentalControllers.createRental);
 
 
 
