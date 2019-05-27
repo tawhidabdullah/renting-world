@@ -22,6 +22,23 @@ const fetchRentalsFail = (errors) => {
 }
 
 
+const fetchRentalsByIdSuccess = (rental) => {
+  return {
+    type: FETCH_RENTALS_BY_ID_SUCCESS,
+    rental
+  }
+}
+
+const fetchRentalsSuccess = (rentals) => {
+
+  return {
+    type: FETCH_RENTALS_SUCCESS,
+    rentals
+  }
+
+}
+
+
 
 export const fetchRentals = (city) => dispatch => {
   dispatch(fetchRentalsInit())
@@ -42,11 +59,12 @@ export const fetchRentals = (city) => dispatch => {
 
 export const createRental = (newRental) => {
   return axios.post('/api/rentals', newRental)
-      .then(res => res.data)
-      .catch(({
-          response
-      }) => Promise.reject(response.data.errors));
+    .then(res => res.data)
+    .catch(({
+      response
+    }) => Promise.reject(response.data.errors));
 };
+
 
 
 
@@ -60,21 +78,14 @@ export const fetchRentalsById = (id) => {
       })
   }
 
-}
+};
 
 
-const fetchRentalsByIdSuccess = (rental) => {
-  return {
-    type: FETCH_RENTALS_BY_ID_SUCCESS,
-    rental
-  }
-}
 
-const fetchRentalsSuccess = (rentals) => {
-
-  return {
-    type: FETCH_RENTALS_SUCCESS,
-    rentals
-  }
-
-}
+export const getUserRentals = () => {
+  return axios.get('/api/rentals/manage')
+    .then(res => res.data)
+    .catch(({
+      response
+    }) => Promise.reject(response.data.errors));
+};

@@ -30,6 +30,12 @@ import RentalDetail from "../components/rental/rentalDetail/RentalDetail";
 import RentalSeachListing from "../components/rental/rental-Listing/RentalSeachListing";
 import RentalCreate from "../components/rental/rental-create/RentalCreate";
 
+// import Rental Manage and booking manage 
+import RentalManage from "../components/rental/rental-manage/RentalManage";
+import BookingManage from "../components/booking/booking-manage/BookingManage";
+
+
+
 // CHECK FOR TOKEN
 if (localStorage.jwttoken) {
   // set auth token to header Authorization
@@ -93,7 +99,12 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
             </Switch>
-
+            <Switch>
+              <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/bookings/manage" component={BookingManage} />
+            </Switch>
           </main>
         </div>
       </Provider>

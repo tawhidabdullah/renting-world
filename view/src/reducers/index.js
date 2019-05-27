@@ -8,12 +8,14 @@ import {
   rentalReducer,
   selectedRentalReducer
 } from "./rentalReducer";
+import userBookingsReducer from "./bookingReducer";
 
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   rentals: rentalReducer,
-  rental: selectedRentalReducer
+  rental: selectedRentalReducer,
+  userBookings: userBookingsReducer
 
 });

@@ -19,3 +19,8 @@ export const getRangeDates = (startAt, endAt, dateFormat = "Y/MM/DD") => {
 
     return tempDates;
 }
+
+
+export const pritiyDate = (date) => {
+    return moment(date).format("MMM Do YY");
+}
