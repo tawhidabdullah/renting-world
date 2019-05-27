@@ -45,7 +45,7 @@ router.post('/', passport.authenticate("jwt", {
 // @route DELETE /api/rentals
 // @decription DELETE rental  
 // @access Private
-router.delete('/', passport.authenticate("jwt", {
+router.delete('/:id', passport.authenticate("jwt", {
     session: false
 }), rentalControllers.deleteRental);
 

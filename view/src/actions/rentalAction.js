@@ -89,3 +89,12 @@ export const getUserRentals = () => {
       response
     }) => Promise.reject(response.data.errors));
 };
+
+
+export const deleteRental = (rentalId) => {
+  return axios.delete(`/api/rentals/${rentalId}`)
+    .then(res => res.data)
+    .catch(({
+      response
+    }) => Promise.reject(response.data.errors));
+};

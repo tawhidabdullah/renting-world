@@ -21,6 +21,6 @@ export const getRangeDates = (startAt, endAt, dateFormat = "Y/MM/DD") => {
 }
 
 
-export const pritiyDate = (date) => {
+export const pritifyDate = (date) => {
     return moment(date).format("MMM Do YY");
 }

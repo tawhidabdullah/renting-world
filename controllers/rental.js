@@ -110,9 +110,7 @@ exports.createRental = (req, res) => {
     rental.user = user;
 
     rental.save((err, newRental) => {
-        console.log('newRental', newRental);
         if (err) {
-            console.log(err);
             return res.status(404).send({
                 errors: [{
                     title: "Rental Error!"
@@ -164,7 +162,7 @@ exports.deleteRental = (req, res) => {
                 });
             }
 
-            if (rental.booking.length > 0) {
+            if (rental.bookings.length > 0) {
                 return res.status(404).send({
                     errors: [{
                         title: "Active Bookings!",

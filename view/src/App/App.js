@@ -91,6 +91,7 @@ class App extends Component {
               <Route exact path="/" render={() => <Redirect to='/rentals' />} />
               <Route exact path="/rentals" component={Rental} />
               <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
+              <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
               <Route exact path="/rentals/:id" component={RentalDetail} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
@@ -98,9 +99,6 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/bookings/manage" component={BookingManage} />
