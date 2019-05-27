@@ -3,15 +3,6 @@ const router = express.Router();
 const Rental = require("../../models/rental")
 
 
-router.get('/', (req, res) => {
-
-    Rental.find({})
-        .select('-bookings')
-        .exec((err, rentals) => {
-            res.json(rentals);
-        })
-});
-
 router.get('/:id', (req, res) => {
     const rentalId = req.params.id;
 
@@ -31,6 +22,58 @@ router.get('/:id', (req, res) => {
             return res.json(rental);
         })
 });
+
+
+router.get('/', (req, res) => {
+
+    const city = req.query.city;
+
+    if (city) {
+        Rental.find({
+                city: city.toLowerCase()
+            })
+            .select('-bookings')
+            .exec((err, filteredRentals) => {
+                if (err) {
+                    return res.status(404).send({
+                        errors: [{
+                            title: "Rental Error!"
+                        }, {
+                            detail: "Something went wrong for searching rental by city!"
+                        }]
+                    })
+                }
+                if (filteredRentals.length === 0) {
+                    return res.status(404).send({
+                        errors: [{
+                            title: "no rentals Found!"
+                        }, {
+                            detail: `There are no rentals for the city ${city}`
+                        }]
+                    })
+                }
+
+                return res.json(filteredRentals); 
+
+
+            })
+
+
+        return res.json({
+            city
+        });
+    } else {
+
+        Rental.find({})
+            .select('-bookings')
+            .exec((err, rentals) => {
+                return res.json(rentals);
+            })
+    }
+
+});
+
+
 
 
 
