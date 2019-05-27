@@ -89,12 +89,13 @@ class App extends Component {
             <Switch>
               {/* <Route exact path="/" component={Home} /> */}
               <Route exact path="/" render={() => <Redirect to='/rentals' />} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
               <Route exact path="/rentals" component={Rental} />
               <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
               <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
               <Route exact path="/rentals/:id" component={RentalDetail} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
+            
               {/* <Route component={Error} /> */}
             </Switch>
             <Switch>

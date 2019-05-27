@@ -1,12 +1,22 @@
-import React from 'react'; 
+import React from 'react';
 import RentalAssets from "./RentalAssets";
-import { rentalType,toUpperCase } from "../../../helpers";
+import { rentalType, toUpperCase } from "../../../helpers";
+import "../../../styles/rental/_rentalDetailInfo.scss"; 
 
-const RentalDetailInfo = ({rental}) => {
-    const {title,city,category,image,shared,description,bedrooms} = rental; 
+const RentalDetailInfo = ({ rental }) => {
+    const { title, city, category,  shared, description, bedrooms,user } = rental;
     return (
         <div className='rental'>
-            <h2 className={`rental-type ${category}`}>{rentalType(shared)} {category}</h2>
+            <h2 className={`rental-type ${category}`}>
+                {rentalType(shared)} {category}
+            </h2>
+            <div className='rental-owner'>
+                <img
+                    src={user.avatar}
+                    alt='owner' />
+                <span>{user && user.name}</span> 
+            </div>
+
             <h1 className='rental-title'>{title}</h1>
             <h2 className='rental-city'>{toUpperCase(city)}</h2>
             <div className='rental-room-info'>
