@@ -22,11 +22,12 @@ import BackDrop from "../components/BackDrop/BackDrop";
 
 // IMPORT PAGES
 // import Home from "./pages/Home";
-import Rental from "../pages/Rental";
+import Rental from "../pages/rental/Rental";
+// import RentalSeachListing from "../pages/rental/RentalSeachListing";
 // import Error from "./pages/Error";
 
 import RentalDetail from "../components/rental/rentalDetail/RentalDetail";
-
+import RentalSeachListing from "../components/rental/rental-Listing/RentalSeachListing";
 
 // CHECK FOR TOKEN
 if (localStorage.jwttoken) {
@@ -82,6 +83,7 @@ class App extends Component {
               {/* <Route exact path="/" component={Home} /> */}
               <Route exact path="/" render={()=> <Redirect to='/rentals' />} />
               <Route exact path="/rentals" component={Rental} />
+              <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
               <Route exact path="/rentals/:id" component={RentalDetail} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />

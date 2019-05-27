@@ -3,23 +3,13 @@ const isEmpty = require('./isempty');
 
 module.exports = function validateLoginInput(data) { // export validateRegister function 
     let errors = {};
-    const {
-        city,
-        street,
-        title,
-        category,
-        image,
-        bedrooms,
-        description,
-        dailyRate
-    } = req.body;
+
 
     data.city = !isEmpty(data.city) ? data.city : '';
     data.street = !isEmpty(data.street) ? data.street : '';
     data.description = !isEmpty(data.description) ? data.description : '';
     data.title = !isEmpty(data.title) ? data.title : '';
     data.category = !isEmpty(data.category) ? data.category : '';
-
     data.dailyRate = !isEmpty(data.dailyRate) ? data.dailyRate : '';
     data.bedrooms = !isEmpty(data.bedrooms) ? data.bedrooms : '';
 

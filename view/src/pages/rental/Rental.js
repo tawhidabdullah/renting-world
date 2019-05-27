@@ -1,5 +1,5 @@
 import React from "react";
-import RentalListing from "../components/rental/rental-Listing/RentalListing";
+import RentalListing from "../../components/rental/rental-Listing/RentalListing";
 
 const Rental = () => {
   return (

@@ -1,17 +1,39 @@
 import axios from "axios";
 import {
   FETCH_RENTALS_SUCCESS,
-  FETCH_RENTALS_BY_ID_SUCCESS
+  FETCH_RENTALS_BY_ID_SUCCESS,
+  FETCH_RENTALS_FAIL,
+  FETCH_RENTALS_INIT
 } from "./types";
 
 
+const fetchRentalsInit = () => {
+  return {
+    type: FETCH_RENTALS_INIT,
+  };
+};
+
+const fetchRentalsFail = (errors) => {
+  return {
+    type: FETCH_RENTALS_FAIL,
+    errors
+  }
+}
 
 
-export const fetchRentals = () => dispatch => {
-  axios.get('/api/rentals')
+
+export const fetchRentals = (city) => dispatch => {
+  dispatch(fetchRentalsInit())
+  const url = city ? `/api/rentals?city=${city}` : "/api/rentals";
+  axios.get(url)
     .then(rentals => rentals.data)
     .then((rentals) => {
-      dispatch(fetchRentalsSuccess(rentals));
+      return dispatch(fetchRentalsSuccess(rentals));
+    })
+    .catch(({
+      response
+    }) => {
+      return dispatch(fetchRentalsFail(response.data.errors));
     })
 }
 
@@ -33,7 +55,7 @@ const fetchRentalsByIdSuccess = (rental) => {
   return {
     type: FETCH_RENTALS_BY_ID_SUCCESS,
     rental
-  }   
+  }
 }
 
 const fetchRentalsSuccess = (rentals) => {

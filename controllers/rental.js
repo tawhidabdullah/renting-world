@@ -70,11 +70,11 @@ exports.createRental = (req, res) => {
         isValid
     } = validateRentalsInput(req.body);
 
-    let image = req.body.image;
+    // let image = req.body.image;
 
-    if (!image) {
-        errors.imgError = "img shoud be send buddy";
-    }
+    // if (!image) {
+    //     errors.imgError = "img shoud be send buddy";
+    // }
 
     // if input is not valid then send and error response
     if (!isValid) {

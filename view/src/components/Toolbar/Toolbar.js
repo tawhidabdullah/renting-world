@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authAction";
 import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
 import logo from "../../images/book-icon.png";
-import { FaShoppingCart } from "react-icons/fa";
+import RentalSeachInput from "../rental/RentalSeachInput";
 
 // import CSS
 import "../../styles/header/_toolBar.scss";
@@ -110,6 +110,7 @@ class Toolbar extends Component {
               <img className="mainLogo" src={logo} alt="logo alt" />
             </Link>
           </div>
+          <RentalSeachInput />
           <div className="spacer" />
           <div className="toolbar__navigation-items">
             <ul>
