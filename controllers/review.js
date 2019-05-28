@@ -9,9 +9,6 @@ const moment = require("moment");
 const errorHelpers = require("../helpers/mongoose");
 
 
-
-
-
 exports.getReviews = (req, res) => {
     const {
         rentalId
@@ -28,7 +25,7 @@ exports.getReviews = (req, res) => {
                 })
             }
 
-            return res.json(reviews); 
+            return res.json(reviews);
         });
 }
 
@@ -87,15 +84,15 @@ exports.createReview = (req, res) => {
             const timeNow = moment();
             const endAt = moment(booking.endAt);
 
-            if (!endAt.isBefore(timeNow)) {
-                return res.status(404).send({
-                    errors: [{
-                        title: "Invalid Date!"
-                    }, {
-                        detail: "You can place review only after finishing bookings!"
-                    }]
-                })
-            }
+            // if (!endAt.isBefore(timeNow)) {
+            //     return res.status(404).send({
+            //         errors: [{
+            //             title: "Invalid Date!"
+            //         }, {
+            //             detail: "You can place review only after finishing bookings!"
+            //         }]
+            //     })
+            // }
 
             if (booking.review) {
                 return res.status(404).send({

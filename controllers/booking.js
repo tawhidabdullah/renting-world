@@ -21,8 +21,6 @@ exports.createBooking = (req, res) => {
     } = req.body;
     const user = req.user.id;
 
-    console.log("endAt", endAt);
-
     const booking = new Booking({
         startAt,
         endAt,
@@ -106,6 +104,7 @@ exports.manageBooking = (req, res) => {
             user
         })
         .populate('rental')
+        .populate('review')
         .exec((err, bookings) => {
             if (err) {
                 return res.status(422).send({

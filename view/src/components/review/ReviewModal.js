@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from "react-responsive-modal";
 import StarRatings from "react-star-ratings";
+import { createReview } from "../../actions/reviewAction";
 
 
 class ReviewModal extends React.Component {
@@ -27,10 +28,15 @@ class ReviewModal extends React.Component {
         })
     }
 
-
     publishReview = () => {
+        const { rating, text } = this.state;
+        const bookingId = this.props.bookingId; 
 
-    }; 
+        createReview({ rating, text }, bookingId.toString()).then((review)=>{
+            this.closeModal();
+            this.props.onReviewCreated(review); 
+        })
+    };
 
     handleTextChange = (e) => {
         this.setState({
@@ -38,7 +44,7 @@ class ReviewModal extends React.Component {
         })
     }
 
-    changeRating = (newRating,name) => {
+    changeRating = (newRating, name) => {
         this.setState({
             rating: newRating
         })
@@ -46,13 +52,13 @@ class ReviewModal extends React.Component {
 
 
     render() {
-        const { open,text,rating } = this.state;
+        const { open, text, rating } = this.state;
         return (
             <>
                 <button
                     onClick={this.openModal}
                     className='btn btn-outline-primary ml-3'>
-                     Review
+                    Review
                 </button>
                 <Modal open={open} onClose={this.closeModal}
                     little
@@ -61,31 +67,32 @@ class ReviewModal extends React.Component {
                         Write a Review
                      </h4>
                     <div className='modal-body'>
-                      
-                      <textarea
-                      style={{marginBottom: "10px"}}
-                      onChange={this.handleTextChange}
-                      value={text}
-                      className="form-control"
-                      placeholder={`Write your experience here with this rental`}
-                      rows={3}
-                      cols={50}
-                      >
-                      </textarea>
-                      <StarRatings
-                      rating={rating}
-                      starRatedColor="orange"
-                      starHoverColor='orange'
-                      starDimension='35px'
-                      starSpacing='2px'
-                      changeRating={this.changeRating}
-                      numberOfStars={5}
-                      name='rating'
-                       />
-                        
-                </div>
+
+                        <textarea
+                            style={{ marginBottom: "10px" }}
+                            onChange={this.handleTextChange}
+                            value={text}
+                            className="form-control"
+                            placeholder={`Write your experience here with this rental`}
+                            rows={3}
+                            cols={50}
+                        >
+                        </textarea>
+                        <StarRatings
+                            rating={rating}
+                            starRatedColor="orange"
+                            starHoverColor='orange'
+                            starDimension='35px'
+                            starSpacing='2px'
+                            changeRating={this.changeRating}
+                            numberOfStars={5}
+                            name='rating'
+                        />
+
+                    </div>
                     <div className='modal-footer'>
                         <button
+                            disabled={!text && !rating}
                             onClick={this.publishReview}
                             type='button'
                             className='btn btn-primary'>Confirm</button>

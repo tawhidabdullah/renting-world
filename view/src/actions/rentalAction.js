@@ -71,10 +71,11 @@ export const createRental = (newRental) => {
 
 export const fetchRentalsById = (id) => {
   return function (dispatch) {
-    axios.get(`/api/rentals/${id}`)
+  return axios.get(`/api/rentals/${id}`)
       .then(rental => rental.data)
       .then(rental => {
         dispatch(fetchRentalsByIdSuccess(rental));
+        return rental; 
       })
   }
 

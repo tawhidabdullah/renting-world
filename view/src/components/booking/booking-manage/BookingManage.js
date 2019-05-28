@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchUserBookings } from "../../../actions/bookingAction";
+import { fetchUserBookings,updateBooking } from "../../../actions/bookingAction";
 import BookingCard from "./BookingCard";
 import ReviewModal from "../../review/ReviewModal";
+
+
 import "../../../styles/booking/_manageBookings.scss";
 
 
@@ -11,14 +13,32 @@ class BookingManage extends Component {
     componentWillMount() {
         this.props.dispatch(fetchUserBookings());
     }
-    renderBookings(bookings){
-        return  bookings.map((booking, index) => {
+
+    handleReviewCreated = (review, upadatedBooking) => {
+        const { dispatch } = this.props;
+        const { data: bookings } = this.props.userBookings;
+        const index = bookings.findIndex(booking => {
+            return booking._id === upadatedBooking._id
+        });
+        upadatedBooking.review = review; 
+        bookings[index] = upadatedBooking; 
+        dispatch(updateBooking(bookings)); 
+    }
+    renderBookings(bookings) {
+        return bookings.map((booking, index) => {
             return <BookingCard
-            review={()=> <ReviewModal />} 
-            booking={booking}
-            key={index} />
-        })}
-    
+                reviewModal={() => <ReviewModal
+                    bookingId={booking._id}
+                    hasReview={booking.review}
+                    onReviewCreated={(review) => {
+                        this.handleReviewCreated(review, booking);
+                    }}
+                />}
+                booking={booking}
+                key={index} />
+        })
+    }
+
     render() {
         const { data: bookings, isFetching } = this.props.userBookings;
         return (
@@ -26,7 +46,7 @@ class BookingManage extends Component {
                 <section id='userBookings'>
                     <h1 className='page-title'>My Bookings</h1>
                     <div className='row'>
-                      {this.renderBookings(bookings)}
+                        {this.renderBookings(bookings)}
                     </div>
                     {!isFetching && bookings.length === 0 ? (
                         <div class='alert alert-warning'>

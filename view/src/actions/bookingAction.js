@@ -2,8 +2,10 @@ import axios from "axios";
 import {
     FETCH_USER_BOOKINGS_FAIL,
     FETCH_USER_BOOKINGS_SUCCESS,
-    FETCH_USER_BOOKINGS_INIT
+    FETCH_USER_BOOKINGS_INIT,
+    UPDATE_BOOKING_REVIEWS
 } from "./types";
+
 
 const fetchUserBookingsInit = () => {
     return {
@@ -48,3 +50,10 @@ export const fetchUserBookings = () => dispatch => {
             return dispatch(fetchUserBookingsFail(response.data.errors));
         })
 };
+
+export const  updateBooking = (bookings) => {
+    return {
+        type: UPDATE_BOOKING_REVIEWS,
+        bookings
+    }
+}

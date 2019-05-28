@@ -1,7 +1,8 @@
 import {
     FETCH_USER_BOOKINGS_INIT,
     FETCH_USER_BOOKINGS_SUCCESS,
-    FETCH_USER_BOOKINGS_FAIL
+    FETCH_USER_BOOKINGS_FAIL,
+    UPDATE_BOOKING_REVIEWS
 } from "../actions/types";
 
 
@@ -28,9 +29,13 @@ const userBookingsReducer = (state = INIT_STATE, action) => {
                     return {
                         ...state, errors: action.errors, data: [], isFetching: false
                     }
+                    case UPDATE_BOOKING_REVIEWS:
+                        return {
+                            ...state,  data: action.bookings
+                        }
 
-                    default:
-                        return state;
+                        default:
+                            return state;
     }
 };
 

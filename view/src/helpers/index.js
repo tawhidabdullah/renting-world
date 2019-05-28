@@ -24,3 +24,11 @@ export const getRangeDates = (startAt, endAt, dateFormat = "Y/MM/DD") => {
 export const pritifyDate = (date) => {
     return moment(date).format("MMM Do YY");
 }
+
+
+export const isDateExpired = (enddate) => {
+    const dateNow = moment(); 
+    const endDateOfBooking = moment(enddate); 
+
+   return endDateOfBooking.isAfter(dateNow); 
+}
