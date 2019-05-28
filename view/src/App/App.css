@@ -55,6 +55,10 @@
   letter-spacing: 0.1px;
   font-size: 16px; }
 
+.toolbar__navigation-items a:hover {
+  text-decoration: none;
+  color: whitesmoke; }
+
 .toolbar__navigation-items a:hover,
 .toolbar__navigation-items a:active {
   color: #162225; }

@@ -10,7 +10,7 @@ const usersRoutes = require("./routes/api/users");
 const profileRoutes = require("./routes/api/profile");
 const rentalRoutes = require("./routes/api/rental");
 const bookingRoutes = require("./routes/api/bookings");
-
+const reviewRoutes = require("./routes/api/reviews");
 const app = express();
 
 app.use(bodyparser.urlencoded({
@@ -25,7 +25,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
     .connect(db)
     .then(() => {
-        console.log("mongoDB Connected !"); 
+        console.log("mongoDB Connected !");
     })
     .catch(err => console.log(err));
 
@@ -41,7 +41,7 @@ app.use("/api/users", usersRoutes); // use Router() =>middleware (const router =
 app.use("/api/profile", profileRoutes);
 app.use("/api/rentals", rentalRoutes);
 app.use("/api/bookings", bookingRoutes);
-
+app.use("/api/reviews", reviewRoutes);
 
 // if production then server statice production
 if (process.env.NODE_ENV === "production") {

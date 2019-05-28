@@ -10,7 +10,8 @@ const bookingSchema = new Schema({
    guests: Number,
    createdAt: {type: Date, default: Date.now},
    user: {type: Schema.Types.ObjectId, ref: 'users'},
-   rental: {type: Schema.Types.ObjectId, ref: 'rentals'}
+   rental: {type: Schema.Types.ObjectId, ref: 'rentals'},
+   review: {type: Schema.Types.ObjectId, ref: "reviews"}
 });
 
 // with booking schema , load the booking model for booking collection
