@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { toUpperCase, pritifyDate } from "../../../helpers";
 
-const BookingCard = ({booking}) => {
+const BookingCard = ({booking, review}) => {
     return (
         <div className='col-md-4'>
         <div className='card text-center'>
@@ -30,10 +30,11 @@ const BookingCard = ({booking}) => {
                 {booking.rental && (
                     <Link
                         to={`/rentals/${booking.rental._id}`}
-                        className='btn btn-bwm'
+                        className='btn btn-primary'
                     >
                         Go to Rental
              </Link>)}
+             {review && review()}
             </div>
             <div className='card-footer text-muted'>
                 Created {pritifyDate(booking.createdAt)}

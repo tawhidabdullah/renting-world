@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUserBookings } from "../../../actions/bookingAction";
 import BookingCard from "./BookingCard";
+import ReviewModal from "../../review/ReviewModal";
 import "../../../styles/booking/_manageBookings.scss";
 
 
@@ -12,7 +13,10 @@ class BookingManage extends Component {
     }
     renderBookings(bookings){
         return  bookings.map((booking, index) => {
-            return <BookingCard booking={booking} key={index} />
+            return <BookingCard
+            review={()=> <ReviewModal />} 
+            booking={booking}
+            key={index} />
         })}
     
     render() {

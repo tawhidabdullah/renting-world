@@ -10,6 +10,29 @@ const errorHelpers = require("../helpers/mongoose");
 
 
 
+
+
+exports.getReviews = (req, res) => {
+    const {
+        rentalId
+    } = req.query;
+
+    Review.find({
+            'rental': rentalId
+        })
+        .populate("user")
+        .exec((err, reviews) => {
+            if (err) {
+                return res.status(422).send({
+                    errors: errorHelpers.normalizeMongooseError(err.errors)
+                })
+            }
+
+            return res.json(reviews); 
+        });
+}
+
+
 exports.createReview = (req, res) => {
     const reviewData = req.body;
     const {

@@ -9,6 +9,19 @@ const reviewControllers = require("../../controllers/review");
 const router = express.Router();
 
 
+// @route GET /api/reviews
+// @decription get reviews
+// @access Private
+
+router.get(
+  "/",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  reviewControllers.getReviews
+);
+
+
 // @route POST /api/reviews
 // @decription create review
 // @access Private
