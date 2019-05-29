@@ -4,7 +4,14 @@ import AlertError from "../commonFeilds/AlertError";
 
 
 const BookingModal = (props) => {
-    const { open, closeModal, booking, confirmModal,errors, rentalPrice } = props;
+    const { open,
+            closeModal,
+            booking,
+            confirmModal,
+            errors,
+            rentalPrice,
+            disabled,
+            acceptPayment } = props;
     return (
         <Modal open={open} onClose={closeModal} little classNames={{ modal: 'booking-modal' }}>
             <h4 className='modal-title title'>Confirm Booking </h4>
@@ -14,14 +21,16 @@ const BookingModal = (props) => {
          <em>{rentalPrice}</em> per Night
          <p>Guests: <em>{booking.guests}</em></p>
                 <p>Price: <em>{booking.totalPrice}$ </em></p>
+                {acceptPayment && acceptPayment()}
                 <p>Do you confirm your booking for selected days?</p>
             </div>
             <AlertError errors={errors} />
             <div className='modal-footer'>
                 <button
-                onClick={confirmModal}
-                type='button'
-                className='btn btn-primary'>Confirm</button>
+                    disabled={disabled}
+                    onClick={confirmModal}
+                    type='button'
+                    className='btn btn-primary'>Confirm</button>
                 <button type='button' onClick={closeModal} className='btn btn-danger'>Cancel</button>
             </div>
         </Modal>

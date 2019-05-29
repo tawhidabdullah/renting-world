@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 import setAuthorizationToken from "../utilities/setAuthorizationToken";
+import { StripeProvider } from "react-stripe-elements";
 
 // IMPORT REDUX STORE
 import store from "../store";
@@ -80,33 +81,36 @@ class App extends Component {
     }
 
     return (
-      <Provider store={store}>
-        <div style={{ height: "100%" }}>
-          {/* <Navbar /> */}
-          <Toolbar drawerClickHandler={this.drawerToggleHandler} />
-          {sideDrawerAndBackDrop}
-          <main>
-            <Switch>
-              {/* <Route exact path="/" component={Home} /> */}
-              <Route exact path="/" render={() => <Redirect to='/rentals' />} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/rentals" component={Rental} />
-              <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
-              <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
-              <Route exact path="/rentals/:id" component={RentalDetail} />
-            
-              {/* <Route component={Error} /> */}
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/bookings/manage" component={BookingManage} />
-            </Switch>
-          </main>
-        </div>
-      </Provider>
+      <StripeProvider apiKey='pk_test_LWCI4vSjDVkoxeXT8RmMyC2h'>
+          <Provider store={store}>
+            <div style={{ height: "100%" }}>
+              {/* <Navbar /> */}
+              <Toolbar drawerClickHandler={this.drawerToggleHandler} />
+              {sideDrawerAndBackDrop}
+              <main>
+                <Switch>
+                  {/* <Route exact path="/" component={Home} /> */}
+                  <Route exact path="/" render={() => <Redirect to='/rentals' />} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/rentals" component={Rental} />
+                  <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
+                  <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
+                  <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
+                  <Route exact path="/rentals/:id" component={RentalDetail} />
+                
+                  {/* <Route component={Error} /> */}
+                </Switch>
+                <Switch>
+                
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/bookings/manage" component={BookingManage} />
+                </Switch>
+              </main>
+            </div>
+          </Provider>
+      </StripeProvider>
     );
   }
 }

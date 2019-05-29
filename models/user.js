@@ -3,27 +3,14 @@ const { Schema } = mongoose;
 
 // creat user schema
 const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
+  name: {type: String,required: true},
+  email: { type: String,required: true},
+  password: {type: String,required: true},
   avatar: String,
-  date: {
-    type: Date, 
-    default: Date.now
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false
-  },
+  date: {type: Date, default: Date.now},
+  isAdmin: {type: Boolean, default: false},
+  stripeCustomerId: String,
+  revenue: Number,
   bookings: [{type: Schema.Types.ObjectId, ref: 'bookings'}],
   rentals: [{type: Schema.Types.ObjectId, ref: 'rentals'}]
 });

@@ -32,3 +32,6 @@ export const isDateExpired = (enddate) => {
 
    return endDateOfBooking.isAfter(dateNow); 
 }
+
+
+

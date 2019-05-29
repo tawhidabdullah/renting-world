@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const ALLOWED_RATINGS = [1,2,3,4,5]; 
 
-// creat user schema
+// creat review schema
 const reviewSchema = new Schema({
     rating: Number,
     text: String,

@@ -1,12 +1,16 @@
 import React from 'react';
 import DateRangePicker from "react-bootstrap-daterangepicker";
-import { getRangeDates } from "../../helpers";
 import * as moment from "moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import BookingModal from "./BookingModal";
-import { createBooking } from "../../actions/bookingAction";
 import { ToastContainer, toast } from "react-toastify";
+
+
+import BookingModal from "./BookingModal";
+import { getRangeDates } from "../../helpers";
+import { createBooking } from "../../actions/bookingAction";
+import Payment from "../payment/Payment";
+
 
 import "../../styles/booking/_booking.scss";
 
@@ -22,6 +26,7 @@ class Booking extends React.Component {
                 startAt: "",
                 endAt: "",
                 guests: "",
+                paymentToken: ""
             },
 
             modal: {
@@ -110,6 +115,15 @@ class Booking extends React.Component {
         this.bookOutDates.push(dateRange);
     };
 
+    setPaymentToken = (paymentToken) => {
+        const { proposedBooking } = this.state;
+        proposedBooking.paymentToken = paymentToken;
+
+        this.setState({
+            proposedBooking
+        });
+    }
+
     resetFormData = () => {
         this.dateRef.current.value = "";
 
@@ -128,15 +142,11 @@ class Booking extends React.Component {
             }, (errors) => {
                 this.setState({ errors })
             })
-            ;
-
     };
-
-
 
     render() {
         const { dailyRate } = this.props.rental;
-        const { guests, startAt, endAt } = this.state.proposedBooking;
+        const { guests, startAt, endAt, paymentToken } = this.state.proposedBooking;
         const { auth: { isAuthenticate } } = this.props;
 
         return (
@@ -195,6 +205,10 @@ class Booking extends React.Component {
                     open={this.state.modal.open}
                     closeModal={this.cancelBookingProposedModal}
                     rentalPrice={dailyRate}
+                    disabled={!paymentToken}
+                    acceptPayment={() => <Payment
+                                            setPaymentToken={this.setPaymentToken}
+                                            />}
                 />
             </div>
         )

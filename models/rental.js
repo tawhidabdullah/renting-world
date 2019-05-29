@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-// creat user schema
+// creat rental schema
 const rentalSchema = new Schema({
     title: { type: String, required: true, max: [128, 'Too long, max is 128 characters']},
     city: { type: String, required: true, lowercase: true },
