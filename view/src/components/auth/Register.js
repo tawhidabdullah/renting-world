@@ -103,7 +103,7 @@ class Register extends Component {
                 <div className="form">
                   <input
                     type="submit"
-                    value="Create Product"
+                    value="Create Account"
                     id="input-submit"
                   />{" "}
                 </div>

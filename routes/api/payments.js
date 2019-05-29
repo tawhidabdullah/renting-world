@@ -18,5 +18,21 @@ router.get('/', passport.authenticate("jwt", {
 }), PaymentsControllers.getPendingPayments);
 
 
+// @route POST /api/payments/accept
+// @decription accept the pending payment 
+// @access Private
+router.post('/accept', passport.authenticate("jwt", {
+  session: false
+}), PaymentsControllers.confirmPayment);
+
+
+// @route POST /api/payments/decline
+// @decription decline the pending payment 
+// @access Private
+router.post('/decline', passport.authenticate("jwt", {
+  session: false
+}), PaymentsControllers.declinePayment);
+
+
 
 module.exports = router;

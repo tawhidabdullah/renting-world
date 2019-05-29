@@ -82,7 +82,7 @@ class Login extends Component {
                 <div className="form">
                   <input
                     type="submit"
-                    value="Create Product"
+                    value="Login"
                     id="input-submit"
                   />{" "}
                 </div>

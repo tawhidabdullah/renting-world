@@ -45,7 +45,7 @@ export const BookingCard = ({ booking, reviewModal }) => {
     )
 }
 
-export const PaymentCard = ({ booking, payment, reviewModal }) => {
+export const PaymentCard = ({ booking, payment, reviewModal, paymentBtns }) => {
     const isExpired = !isDateExpired(booking.endAt);
     return (
         <div className='col-md-4'>
@@ -71,6 +71,7 @@ export const PaymentCard = ({ booking, payment, reviewModal }) => {
                     <p className='card-text booking-price'>
                         <span>Price: </span> <span className='booking-price-value'>{payment.amount} $</span>
                     </p>
+                    <p className='card-text payment-status'> Status: {payment.status}</p>
                     {booking.rental && (
                         <Link
                             to={`/rentals/${booking.rental._id}`}
@@ -82,6 +83,7 @@ export const PaymentCard = ({ booking, payment, reviewModal }) => {
                 </div>
                 <div className='card-footer text-muted'>
                     Created {pritifyDate(booking.createdAt)}
+                   {payment.status === "pending" &&  paymentBtns && paymentBtns(payment)}
                 </div>
             </div>
         </div>

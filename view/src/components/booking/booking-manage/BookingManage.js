@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUserBookings, updateBooking } from "../../../actions/bookingAction";
-import { getPendingPayments } from "../../../actions/paymentAction";
+import { getPendingPayments, acceptPayment, declinePayment } from "../../../actions/paymentAction";
 import { BookingCard, PaymentCard } from "./BookingCard";
 import ReviewModal from "../../review/ReviewModal";
 
@@ -57,8 +57,45 @@ class BookingManage extends Component {
             return <PaymentCard
                 booking={payment.booking}
                 payment={payment}
-                key={index} />
+                key={index}
+                paymentBtns={this.renderPaymentButtons}
+            />
         })
+    };
+
+    executeAcceptPayment = (payment) => {
+        acceptPayment(payment)
+            .then(status => {
+                this.getPendingPayments(); 
+            })
+            .catch(err => console.error(err));
+    }; 
+
+    executeDeclinePayment = (payment) => {
+        declinePayment(payment)
+            .then(status => {
+                this.getPendingPayments(); 
+            })
+            .catch(err => console.error(err));
+    }
+
+
+
+    renderPaymentButtons = (payment) => {
+        return (
+            <div>
+                <button
+                    onClick={() => this.executeAcceptPayment(payment)}
+                    className='btn btn-success'>
+                    Accept
+                </button> {" "}
+                <button
+                    onClick={() => this.executeDeclinePayment(payment)}
+                    className='btn btn-danger'
+                >Decline
+                </button>
+            </div>
+        )
     }
 
     render() {

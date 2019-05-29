@@ -60,7 +60,7 @@ exports.createBooking = (req, res) => {
 
             // console.log(rental);
             if (validateBooking(booking, rental)) {
-                booking.user = user;
+                booking.user = req.user;
                 booking.rental = rental;
                 const {payment,err} = await createPayment(booking, rental.user, paymentToken);
                 if(payment){ // we cannot book a booking without payment 
@@ -137,6 +137,7 @@ exports.manageBooking = (req, res) => {
 async function createPayment(booking,toUser,token){
    
     const {user} = booking; 
+
     const customer = await stripe.customers.create({
         source: token,
         email: user.email
