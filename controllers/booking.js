@@ -7,6 +7,7 @@ const Payment = require("../models/payment");
 // IMPORT KEYS
 const config = require('../config/keys');
 const stripe = require('stripe')(config.stripeSk); 
+// console.log(stripe.charges.create); 
 
 
 // import booking validation
@@ -41,13 +42,12 @@ exports.createBooking = (req, res) => {
     Rental.findById(rental._id)
         .populate('user')
         .populate('bookings')
-        .exec((err, rental) => {
+        .exec( async (err, rental) => {
             if (err) {
                 return res.status(422).send({
                     errors: "something went wrong from controller/bookings"
                 })
             }
-
 
             if (rental.user._id.toString() === user) {
                 return res.status(404).send({
@@ -60,11 +60,10 @@ exports.createBooking = (req, res) => {
 
             // console.log(rental);
             if (validateBooking(booking, rental)) {
-    
-                const {payment,err} = createPayment(booking, rental.user, paymentToken);
+                booking.user = user;
+                booking.rental = rental;
+                const {payment,err} = await createPayment(booking, rental.user, paymentToken);
                 if(payment){ // we cannot book a booking without payment 
-                    booking.user = user;
-                    booking.rental = rental;
                     booking.payment = payment; 
                     rental.bookings.push(booking);
 
@@ -136,12 +135,12 @@ exports.manageBooking = (req, res) => {
 
 
 async function createPayment(booking,toUser,token){
+   
     const {user} = booking; 
-    const customer = await stripe.customer.create({
-        source: token.id,
+    const customer = await stripe.customers.create({
+        source: token,
         email: user.email
     }); 
-
     if(customer){
         User.update({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, ()=>{}); 
         const payment = new Payment({
@@ -150,7 +149,7 @@ async function createPayment(booking,toUser,token){
             fromStripeCustomerId: customer.id,
             booking,
             tokenId: token.id,
-            amount: booking.amount * 100 * CUSTOMER_SHARE
+            amount: booking.totalPrice * 100 * CUSTOMER_SHARE
         });
 
         try{

@@ -18,12 +18,7 @@ const isValidBooking = (proposedBooking, rental) => {
             }
         });
     }
-
-
-
-
-
-
+    
     return isValid;
 }
 

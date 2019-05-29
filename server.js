@@ -3,7 +3,6 @@ const bodyparser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const mongoose = require("mongoose");
-const Rental = require("./models/rental");
 
 // importing the router of USERS
 const usersRoutes = require("./routes/api/users");
@@ -11,6 +10,7 @@ const profileRoutes = require("./routes/api/profile");
 const rentalRoutes = require("./routes/api/rental");
 const bookingRoutes = require("./routes/api/bookings");
 const reviewRoutes = require("./routes/api/reviews");
+const paymentRoutes = require("./routes/api/payments");
 const app = express();
 
 app.use(bodyparser.urlencoded({
@@ -42,6 +42,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/rentals", rentalRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // if production then server statice production
 if (process.env.NODE_ENV === "production") {
