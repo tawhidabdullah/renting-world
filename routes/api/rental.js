@@ -16,11 +16,20 @@ router.get('/manage', passport.authenticate("jwt", {
 }), rentalControllers.manageRentals);
 
 
-
+ 
 // @route POST /api/rentals/:id
 // @decription getting a single rental by id 
 // @access Public
 router.get('/:id', rentalControllers.get_single_rental_by_id);
+
+
+// @route POST /api/:id/verify-user
+// @decription getting a single rental for update and verify the user 
+// @access Private
+router.get('/:id/verify-user', passport.authenticate("jwt", {
+    session: false
+}), rentalControllers.get_single_rental_by_id_verify_user);
+
 
 
 // @route GET /api/rentals
@@ -46,9 +55,9 @@ router.post('/', passport.authenticate("jwt", {
 // @decription Update rentals  
 // @access Private
 router.patch('/:id', passport.authenticate("jwt", {
-    session: false
-}),
-rentalControllers.updateRental);
+        session: false
+    }),
+    rentalControllers.updateRental);
 
 
 // @route DELETE /api/rentals

@@ -27,7 +27,37 @@ exports.get_single_rental_by_id = (req, res) => {
             }
             return res.json(rental);
         })
+};
+
+
+exports.get_single_rental_by_id_verify_user = (req, res) => {
+    const user = req.user.id;
+
+    Rental.findById(req.params.id)
+        .populate('user')
+        .exec((err, rental) => {
+            if (err) {
+                return res.status(422).send({
+                    errors: mongooseError.normalizeMongooseError(err.errors)
+                })
+            };
+
+            if (rental.user._id.toString() !== user) {
+                res.status(404).send({
+                    errors: [{
+                        title: "Invalid User!"
+                    }, {
+                        detail: "You are not the owner of this rental!"
+                    }]
+                })
+            };
+
+            return res.json({ status: 'verified' })
+        })
 }
+
+
+
 
 exports.getRental_OR_getRentalsByQueryCity = (req, res) => {
 
@@ -128,10 +158,10 @@ exports.createRental = (req, res) => {
         User.update({
             _id: user
         }, {
-            $push: {
-                rentals: newRental
-            }
-        }, () => {});
+                $push: {
+                    rentals: newRental
+                }
+            }, () => { });
 
         return res.json(newRental);
     })
@@ -196,8 +226,8 @@ exports.manageRentals = (req, res) => {
     const user = req.user.id;
 
     Rental.where({
-            user
-        })
+        user
+    })
         .populate('bookings')
         .exec((err, rentals) => {
             if (err) {
@@ -211,11 +241,11 @@ exports.manageRentals = (req, res) => {
 
 
 exports.updateRental = (req, res) => {
-    
+
     const {
-        errors, 
+        errors,
         isValid
-    } = validateupdateRentalInput({...req.body});
+    } = validateupdateRentalInput({ ...req.body });
 
     if (!isValid) {
         return res.status(400).json(errors);

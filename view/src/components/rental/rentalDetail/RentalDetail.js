@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchRentalsById } from "../../../actions/rentalAction";
+import { fetchRentalsById, verifiyRentalOwner } from "../../../actions/rentalAction";
 import { getReviews } from "../../../actions/reviewAction";
 import RentalDetailInfo from "./RentalDetailInfo";
 import RentalDetailUpdate from "./RentalDetailUpdate";
 import RentalMap from "./RentalMap";
 import Booking from "../../booking/Booking";
 import Review from "./Review";
+import UserGuard from "../../auth/UserGuard";
 
 
 
@@ -16,7 +17,10 @@ import "../../../styles/rental/_rentalDetail.scss";
 
 class RentalDetail extends Component {
     state = {
-        reviews: []
+        reviews: [],
+        isFetching: false,
+        isAllowed: true
+
     }
     componentWillMount() {
         const rentalId = this.props.match.params.id;
@@ -25,15 +29,29 @@ class RentalDetail extends Component {
                 this.getBookingReviews(rental._id);
             });
 
+    };
+
+    componentDidMount() {
+        const { isUpdate } = this.props.location.state || false;
+        if (isUpdate) {
+            this.verifyRentalOwner();
+        }
+
     }
 
     renderRentalDetail = (rental, errors) => {
-        const {isUpdate} = this.props.location.state || false; 
-      
-        return isUpdate ? <RentalDetailUpdate
-            rental={rental}
-            errors={errors}
-            dispatch={this.props.dispatch} /> :
+        const { isUpdate } = this.props.location.state || false;
+
+        return isUpdate ?
+            <UserGuard
+                isAllowed={this.state.isAllowed}
+                isFetching={this.state.isFetching}
+            >
+                <RentalDetailUpdate
+                    rental={rental}
+                    errors={errors}
+                    dispatch={this.props.dispatch} />
+            </UserGuard> :
             <RentalDetailInfo rental={rental} />;
     }
 
@@ -42,9 +60,21 @@ class RentalDetail extends Component {
         getReviews(rentalId).then((reviews) => {
             this.setState({ reviews })
         });
+    };
+
+    verifyRentalOwner = () => {
+
+        const rentalId = this.props.match.params.id;
+        this.setState({ isFetching: true });
+        return verifiyRentalOwner(rentalId).then(() => {
+            this.setState({ isFetching: false, isAllowed: true });
+        }, () => {
+            this.setState({ isFetching: false, isAllowed: false });
+        });
+
     }
     render() {
-        const {rental, errors} = this.props;
+        const { rental, errors } = this.props;
         const { image, _id, city, street } = rental;
         const { reviews } = this.state;
         if (_id) {
@@ -94,7 +124,7 @@ class RentalDetail extends Component {
 };
 const mapStateToProps = (state) => {
     return {
-        rental: state.rental.data, 
+        rental: state.rental.data,
         errors: state.rental.errors
     }
 };

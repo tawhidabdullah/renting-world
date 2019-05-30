@@ -84,7 +84,14 @@ export const fetchRentalsById = (id) => {
       })
   }
 
-};
+}
+
+export const verifiyRentalOwner = (id) => {
+  return axios.get(`/api/rentals/${id}/verify-user`); 
+}
+
+
+
 
 
 // GET USER RENTALS RENTAL //////////////////////////////////////////////////////

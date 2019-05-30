@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { toast } from "react-toastify";
 import RentalAssets from "./RentalAssets";
+import { toUpperCase } from "../../../helpers/index";
 import { updateRental , resetRentalErrorr} from "../../../actions/rentalAction";
 import EditableInput from "../../commonFeilds/editable/EditableInput";
 import EditableTextArea from "../../commonFeilds/editable/EditableTextArea";
@@ -76,6 +77,7 @@ export default class RentalDetailUpdate extends Component {
                     entityField={'city'}
                     errors={errors}
                     resetErrors={this.resetRentalErrors}
+                    formatPipe={[toUpperCase]}
                      />
 
                 <EditableInput

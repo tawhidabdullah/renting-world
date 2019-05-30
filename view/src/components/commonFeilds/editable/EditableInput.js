@@ -4,6 +4,21 @@ import "../../../styles/rental/_editableComponent.scss";
 
 class EditableInput extends EditableComponent {
 
+    formatView = (value) => {
+        const {formatPipe} = this.props; 
+
+        if(formatPipe){
+            let formatedValue = value; 
+            formatPipe.forEach(pipe => {
+                return formatedValue = pipe(formatedValue); 
+            });
+
+            return formatedValue ; 
+        }; 
+
+        return value; 
+    }
+
     renderComponentView = () => {
         const { value, isActive } = this.state;
         const { className } = this.props;
@@ -31,13 +46,11 @@ class EditableInput extends EditableComponent {
             )
         };
 
-
-
         return (
             <>
                 <span
                     className={className}>
-                    {value}
+                    {this.formatView(value)}
                 </span>
                 <button
                     onClick={this.enableEdit}
