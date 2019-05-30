@@ -40,11 +40,24 @@ class RentalManageCard extends React.Component {
                     </div>
                     <div className='card-footer text-muted'>
                         Created at {pritifyDate(rental.createdAt)}
-                        {!this.state.wantDelete && <button
-                            onClick={this.showDeleteMenu}
-                            className='btn btn-danger' style={{
-                                marginLeft: "10px"
-                            }}>Delete</button>}
+                        {!this.state.wantDelete &&
+                            <>
+                                <button
+                                    onClick={this.showDeleteMenu}
+                                    className='btn btn-danger' style={{
+                                        marginLeft: "10px"
+                                    }}>Delete
+                            </button>
+
+                                <Link
+                                    to={{ pathname: `/rentals/${rental._id}`, state: { isUpdate: true } }}
+                                    className='btn btn-warning' style={{
+                                        marginLeft: "10px"
+                                    }}>edit</Link>
+                            </>
+                        }
+
+
                         {this.state.wantDelete && (
                             <div style={{ marginTop: "10px" }}>
                                 Do you confirm ?

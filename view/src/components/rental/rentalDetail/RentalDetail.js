@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchRentalsById } from "../../../actions/rentalAction";
 import { getReviews } from "../../../actions/reviewAction";
 import RentalDetailInfo from "./RentalDetailInfo";
+import RentalDetailUpdate from "./RentalDetailUpdate";
 import RentalMap from "./RentalMap";
 import Booking from "../../booking/Booking";
 import Review from "./Review";
@@ -25,6 +26,13 @@ class RentalDetail extends Component {
             });
 
     }
+
+    renderRentalDetail = (rental) =>{
+        const {isUpdated} = this.props.location.state; 
+        return isUpdated ? <RentalDetailUpdate rental={rental}  /> :
+         <RentalDetailInfo rental={rental} />; 
+    }
+    
 
     getBookingReviews = (rentalId) => {
         getReviews(rentalId).then((reviews) => {
@@ -52,7 +60,7 @@ class RentalDetail extends Component {
                         <div className='details-section'>
                             <div className='row'>
                                 <div className='col-md-8'>
-                                    <RentalDetailInfo rental={this.props.rental} />
+                                   {this.renderRentalDetail(rental)}
                                 </div>
                                 <div className='col-md-4'> <Booking rental={rental} /></div>
                             </div>

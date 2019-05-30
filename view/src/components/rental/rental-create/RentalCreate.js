@@ -11,14 +11,13 @@ class RentalCreate extends Component {
 
             title: "",
             city: "",
-            dailyRate: "",
+            dailyRate: null,
             bedrooms: "",
             description: "",
             category: "",
             shared: false,
             errors: [],
             redirect: false
-
         };
 
         this.rentalCategory = ['apartment', 'house', 'condo'];
@@ -114,7 +113,7 @@ class RentalCreate extends Component {
                                     <input
                                         onChange={this.onInputChange}
                                         value={this.state.dailyRate}
-                                        type="text"
+                                        type="number"
                                         name="dailyRate"
                                         placeholder="daily Rate"
                                         id="inputWith100"

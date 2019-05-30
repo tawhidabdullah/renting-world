@@ -42,6 +42,15 @@ router.post('/', passport.authenticate("jwt", {
 
 
 
+// @route PATCH /api/rentals/:id
+// @decription Update rentals  
+// @access Private
+router.patch('/:id', passport.authenticate("jwt", {
+    session: false
+}),
+rentalControllers.updateRental);
+
+
 // @route DELETE /api/rentals
 // @decription DELETE rental  
 // @access Private
