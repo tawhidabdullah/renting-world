@@ -3,6 +3,7 @@ const User = require("../models/user");
 
 // importing validation
 const validateRentalsInput = require("../validation/rental");
+const validateupdateRentalInput = require("../validation/updateRental");
 
 // importing mongoose error 
 const mongooseError = require("../helpers/mongoose")
@@ -12,7 +13,7 @@ exports.get_single_rental_by_id = (req, res) => {
     const rentalId = req.params.id;
 
     Rental.findById(rentalId)
-        .populate("user", 'name -_id')
+        .populate("user", 'name -_id avatar')
         .populate("bookings", "startAt endAt -_id")
         .exec((err, rental) => {
             if (err) {
@@ -114,7 +115,7 @@ exports.createRental = (req, res) => {
 
     rental.save((err, newRental) => {
         if (err) {
-            console.log(err); 
+            console.log(err);
             return res.status(404).send({
                 errors: [{
                     title: "Rental Error!"
@@ -206,42 +207,53 @@ exports.manageRentals = (req, res) => {
             }
             return res.json(rentals);
         });
-}; 
+};
 
 
-exports.updateRental = (req,res) => {
-    const rentalData = req.body; 
+exports.updateRental = (req, res) => {
+    
+    const {
+        errors, 
+        isValid
+    } = validateupdateRentalInput({...req.body});
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const rentalData = req.body;
+
     const user = req.user.id;
-    const rentalId = req.params.id; 
+    const rentalId = req.params.id;
 
     Rental.findById(rentalId)
         .populate("user")
-        .exec((err,rental) => {
-            if(err){
+        .exec((err, rental) => {
+            if (err) {
                 return res.status(422).send({
                     errors: mongooseError.normalizeMongooseError(err.errors)
                 })
-            }; 
+            };
 
-            if(rental.user.id !== user){
+            if (rental.user.id !== user) {
                 return res.status(404).send({
                     errors: [{
                         title: "Invalid User",
                         detail: "You are not rental owner!"
                     }]
                 });
-            }; 
+            };
 
-            rental.set(rentalData); 
+            rental.set(rentalData);
 
             rental.save((err => {
-                if(err){
+                if (err) {
                     return res.status(422).send({
                         errors: mongooseError.normalizeMongooseError(err.errors)
                     })
-                }; 
-            })); 
+                };
+            }));
 
-            res.status(200).send(rental); 
-        }) 
+            res.status(200).send(rental);
+        })
 }

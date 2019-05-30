@@ -2,18 +2,28 @@ import React from 'react';
 import EditableComponent from "./EditableComponent";
 import "../../../styles/rental/_editableComponent.scss";
 
-class EditableInput extends EditableComponent {
+
+class EditableSelect extends EditableComponent {
+
+    renderOptions = (options) => {
+      return  options.map((option,index) => {
+            return <option key={index} value={option}> {`${option}`} </option>
+        }); 
+    }
 
     renderComponentView = () => {
         const { value, isActive } = this.state;
-        const { className } = this.props;
+        const { className , options } = this.props;
         if (isActive) {
             return (
                 <>
-                    <input
+                    <select
                         className={`${className} form-control`}
                         onChange={(e) => this.handleChange(e)}
-                        value={value} />
+                        value={value}
+                         >
+                             {this.renderOptions(options)}
+                    </select>
 
                     <button
                         onClick={this.update}
@@ -37,7 +47,7 @@ class EditableInput extends EditableComponent {
             <>
                 <span
                     className={className}>
-                    {value}
+                    {`${value}`}
                 </span>
                 <button
                     onClick={this.enableEdit}
@@ -58,4 +68,4 @@ class EditableInput extends EditableComponent {
     }
 };
 
-export default EditableInput; 
+export default EditableSelect; 

@@ -3,7 +3,7 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import * as moment from "moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 import BookingModal from "./BookingModal";
@@ -151,7 +151,6 @@ class Booking extends React.Component {
 
         return (
             <div className='booking'>
-                <ToastContainer />
                 <h3 className='booking-price'>${dailyRate}
                     <span className='booking-per-night'>per night</span>
                 </h3>

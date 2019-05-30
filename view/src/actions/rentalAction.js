@@ -1,11 +1,12 @@
 import axios from "axios";
 import {
   FETCH_RENTALS_SUCCESS,
-  FETCH_RENTALS_BY_ID_SUCCESS,
+  FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTALS_FAIL,
   FETCH_RENTALS_INIT,
   UPDATE_RENTAL_SUCCESS,
-  UPDATE_RENTAL_FAIL
+  UPDATE_RENTAL_FAIL,
+  RESET_RENTAL_ERRORS
 } from "./types";
 
 
@@ -28,7 +29,7 @@ const fetchRentalsFail = (errors) => {
 
 const fetchRentalsByIdSuccess = (rental) => {
   return {
-    type: FETCH_RENTALS_BY_ID_SUCCESS,
+    type: FETCH_RENTAL_BY_ID_SUCCESS,
     rental
   }
 }
@@ -126,13 +127,19 @@ const updateRentalFail = (errors) => {
 
 
 export const updateRental = (rentalData, id ) => dispatch => {
-  console.log("rentalDAtaFromAction",rentalData); 
   return axios.patch(`/api/rentals/${id}`, rentalData)
     .then(res => res.data)
     .then(updatedRental => dispatch(updateRentalSuccess(updatedRental)))
     .catch(({
       response
     }) => {
-      return dispatch(updateRentalFail(response.data.errors));
+      return dispatch(updateRentalFail(response.data));
     })
 }; 
+
+
+export const resetRentalErrorr  = () => {
+  return {
+    type: RESET_RENTAL_ERRORS
+  }
+}

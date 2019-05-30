@@ -27,11 +27,12 @@ class RentalDetail extends Component {
 
     }
 
-    renderRentalDetail = (rental) => {
+    renderRentalDetail = (rental, errors) => {
         const {isUpdate} = this.props.location.state || false; 
       
         return isUpdate ? <RentalDetailUpdate
             rental={rental}
+            errors={errors}
             dispatch={this.props.dispatch} /> :
             <RentalDetailInfo rental={rental} />;
     }
@@ -43,7 +44,7 @@ class RentalDetail extends Component {
         });
     }
     render() {
-        const rental = this.props.rental;
+        const {rental, errors} = this.props;
         const { image, _id, city, street } = rental;
         const { reviews } = this.state;
         if (_id) {
@@ -63,7 +64,7 @@ class RentalDetail extends Component {
                         <div className='details-section'>
                             <div className='row'>
                                 <div className='col-md-8'>
-                                    {this.renderRentalDetail(rental)}
+                                    {this.renderRentalDetail(rental, errors)}
                                 </div>
                                 <div className='col-md-4'> <Booking rental={rental} /></div>
                             </div>
@@ -93,7 +94,8 @@ class RentalDetail extends Component {
 };
 const mapStateToProps = (state) => {
     return {
-        rental: state.rental.data
+        rental: state.rental.data, 
+        errors: state.rental.errors
     }
 };
 

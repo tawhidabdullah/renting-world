@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 import setAuthorizationToken from "../utilities/setAuthorizationToken";
 import { StripeProvider } from "react-stripe-elements";
+import { ToastContainer } from "react-toastify";
 
 // IMPORT REDUX STORE
 import store from "../store";
@@ -84,6 +85,7 @@ class App extends Component {
       <StripeProvider apiKey='pk_test_LWCI4vSjDVkoxeXT8RmMyC2h'>
           <Provider store={store}>
             <div style={{ height: "100%" }}>
+            <ToastContainer/>
               {/* <Navbar /> */}
               <Toolbar drawerClickHandler={this.drawerToggleHandler} />
               {sideDrawerAndBackDrop}

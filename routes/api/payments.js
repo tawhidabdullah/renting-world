@@ -26,7 +26,7 @@ router.post('/accept', passport.authenticate("jwt", {
 }), PaymentsControllers.confirmPayment);
 
 
-// @route POST /api/payments/decline
+// @route POST /api/payments/decline 
 // @decription decline the pending payment 
 // @access Private
 router.post('/decline', passport.authenticate("jwt", {

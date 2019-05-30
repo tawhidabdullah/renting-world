@@ -2,18 +2,23 @@ import React from 'react';
 import EditableComponent from "./EditableComponent";
 import "../../../styles/rental/_editableComponent.scss";
 
-class EditableInput extends EditableComponent {
+class EditableTextArea extends EditableComponent {
 
     renderComponentView = () => {
         const { value, isActive } = this.state;
-        const { className } = this.props;
+        const { className, rows, cols } = this.props;
         if (isActive) {
             return (
                 <>
-                    <input
+                    <textarea
+                       
                         className={`${className} form-control`}
                         onChange={(e) => this.handleChange(e)}
-                        value={value} />
+                        value={value}
+                        rows={rows}
+                        cols={cols}
+                         >
+                    </textarea>
 
                     <button
                         onClick={this.update}
@@ -58,4 +63,4 @@ class EditableInput extends EditableComponent {
     }
 };
 
-export default EditableInput; 
+export default EditableTextArea; 
