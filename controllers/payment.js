@@ -120,4 +120,4 @@ exports.declinePayment = (req,res) => {
 
         return res.json({status:"deleted"})
     })
-}
+} 

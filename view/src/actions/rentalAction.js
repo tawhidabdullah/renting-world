@@ -125,7 +125,8 @@ const updateRentalFail = (errors) => {
 };
 
 
-export const updateRental = (id, rentalData) => dispatch => {
+export const updateRental = (rentalData, id ) => dispatch => {
+  console.log("rentalDAtaFromAction",rentalData); 
   return axios.patch(`/api/rentals/${id}`, rentalData)
     .then(res => res.data)
     .then(updatedRental => dispatch(updateRentalSuccess(updatedRental)))

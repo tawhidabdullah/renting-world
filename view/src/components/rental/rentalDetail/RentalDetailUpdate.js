@@ -8,6 +8,7 @@ import "../../../styles/rental/_rentalDetailInfo.scss";
 
 
 export default class RentalDetailUpdate extends Component {
+
     updateRental = (rentalData) => {
         const {rental : {_id}, dispatch} = this.props; 
         dispatch(updateRental(rentalData,_id)); 

@@ -242,6 +242,6 @@ exports.updateRental = (req,res) => {
                 }; 
             })); 
 
-            res.status(200).send(foundRentals); 
+            res.status(200).send(rental); 
         }) 
 }
