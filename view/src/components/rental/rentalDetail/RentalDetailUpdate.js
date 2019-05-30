@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import RentalAssets from "./RentalAssets";
-import EditableInput from "../../commonFeilds/editable/EditableInput";
+import { updateRental } from "../../../actions/rentalAction";
 import { rentalType, toUpperCase } from "../../../helpers";
+import EditableInput from "../../commonFeilds/editable/EditableInput";
 import "../../../styles/rental/_rentalDetailInfo.scss";
 
 
 
 export default class RentalDetailUpdate extends Component {
-    updateRental = () => {
-        console.log("update rental called!!")
+    updateRental = (rentalData) => {
+        const {rental : {_id}, dispatch} = this.props; 
+        dispatch(updateRental(rentalData,_id)); 
     }
     render() {
         const { city, category, shared, description, bedrooms, user } = this.props.rental;

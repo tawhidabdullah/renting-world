@@ -17,6 +17,20 @@ class EditableInput extends Component {
         })
     };
 
+    update = () => {
+        const { value, originVavlue } = this.state;
+        const { updateEntity, entityField } = this.props;
+
+        if (value !== originVavlue) {
+            updateEntity({
+                [entityField]: value
+            });
+
+            this.setState({ isActive: false, originVavlue: value })
+        }
+
+    }
+
     enableEdit = () => {
         this.setState({
             isActive: true
@@ -42,12 +56,19 @@ class EditableInput extends Component {
                         className={className}
                         onChange={(e) => this.handleChange(e)}
                         value={value} />
+
+                    <button
+                        onClick={this.update}
+                        className='btn btn-success ml-3'
+                        type='button'>
+                        Save
+                    </button>
                     <button
                         onClick={this.disableEdit}
                         className='btn btn-warning ml-3'
                         type='button'>
                         Close
-                </button>
+                    </button>
                 </>
             )
         };

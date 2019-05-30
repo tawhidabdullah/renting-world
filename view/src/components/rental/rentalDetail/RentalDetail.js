@@ -27,12 +27,14 @@ class RentalDetail extends Component {
 
     }
 
-    renderRentalDetail = (rental) =>{
-        const {isUpdated} = this.props.location.state; 
-        return isUpdated ? <RentalDetailUpdate rental={rental}  /> :
-         <RentalDetailInfo rental={rental} />; 
+    renderRentalDetail = (rental) => {
+        const { isUpdated } = this.props.location.state;
+        return isUpdated ? <RentalDetailUpdate
+            rental={rental}
+            dispatch={this.props.dispatch} /> :
+            <RentalDetailInfo rental={rental} />;
     }
-    
+
 
     getBookingReviews = (rentalId) => {
         getReviews(rentalId).then((reviews) => {
@@ -60,7 +62,7 @@ class RentalDetail extends Component {
                         <div className='details-section'>
                             <div className='row'>
                                 <div className='col-md-8'>
-                                   {this.renderRentalDetail(rental)}
+                                    {this.renderRentalDetail(rental)}
                                 </div>
                                 <div className='col-md-4'> <Booking rental={rental} /></div>
                             </div>
@@ -71,9 +73,9 @@ class RentalDetail extends Component {
                                     <section style={{ marginBottom: '40px' }}>
                                         <h2>Reviews</h2>
                                         {reviews.map((review, index) => {
-                                            return <Review 
-                                            review={review} 
-                                            key={index} />          
+                                            return <Review
+                                                review={review}
+                                                key={index} />
                                         })}
                                     </section>
                                 </div>
