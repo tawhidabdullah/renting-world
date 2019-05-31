@@ -104,24 +104,25 @@ exports.createRental = (req, res) => {
         isValid
     } = validateRentalsInput(req.body);
 
-    // let image = req.body.image;
+    let image = req.file;
 
-    // if (!image) {
-    //     errors.imgError = "img shoud be send buddy";
-    // }
+    if (!image) {
+        errors.imgError = "img shoud be send buddy";
+    }
 
     // if input is not valid then send and error response
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
+   
+    let imgUrl = image.path;
 
     const {
         city,
         street,
         title,
         category,
-        image,
         shared,
         bedrooms,
         description,
@@ -134,7 +135,7 @@ exports.createRental = (req, res) => {
         street,
         title,
         category,
-        image,
+        image: imgUrl,
         shared,
         bedrooms,
         description,
@@ -286,4 +287,40 @@ exports.updateRental = (req, res) => {
 
             res.status(200).send(rental);
         })
-}
+};
+
+// exports.uploadImg = (req,res) => {
+//  const errors = {}; 
+
+//   let image = req.file;
+
+//   if (!image) {
+//     errors.imgError = "img shoud be send buddy";
+//   }
+
+  
+//   if (Object.keys(errors) > 0) {
+//     return res.status(400).json(errors);
+//   }
+
+//   let imgUrl = image.path;
+
+//   const productFields = {};
+
+ 
+//     (productFields.productImage = imgUrl);
+
+//   // search the user by loged in user id
+//   Rental.findOne({ _id: req.body._id }).then(Rental => {
+//     // if we have a product we are gonna update it
+//     if (product) {
+//       Product.findOneAndUpdate(
+//         { _id: req.body._id },
+//         { $set: productFields },
+//         { new: true }
+//       ).then(product => {
+//         res.json(product);
+//       });
+//     }
+//   });
+// }

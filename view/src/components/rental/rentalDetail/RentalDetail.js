@@ -84,7 +84,7 @@ class RentalDetail extends Component {
                         <div className='upper-section'>
                             <div className='row'>
                                 <div className='col-md-6'>
-                                    <img src={image} alt=''></img>
+                                    <img src={`/${image}`} alt=''></img>
                                 </div>
                                 <div className='col-md-6'>
                                     <RentalMap location={`${city}, ${street}`} />

@@ -3,6 +3,7 @@ const bodyparser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const mongoose = require("mongoose");
+const multer = require("multer");
 
 // importing the router of USERS
 const usersRoutes = require("./routes/api/users");
@@ -11,12 +12,27 @@ const rentalRoutes = require("./routes/api/rental");
 const bookingRoutes = require("./routes/api/bookings");
 const reviewRoutes = require("./routes/api/reviews");
 const paymentRoutes = require("./routes/api/payments");
-const app = express();
 
-app.use(bodyparser.urlencoded({
-    extended: false
-}));
+
+// initialize app
+const app = express();
+app.use("/images", express.static("images"));
+
+// Body parser middleware
+
+const multersProperty = require("./validation/multer");
+
+app.use(
+  multer({
+    storage: multersProperty.storage,
+    fileFilter: multersProperty.fileFilter
+  }).single("image")
+);
+
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Db config
 const db = require("./config/keys").mongoURI;

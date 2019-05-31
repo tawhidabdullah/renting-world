@@ -98,12 +98,18 @@ class ReviewModal extends React.Component {
                             className='btn btn-primary'>Confirm</button>
                         <button
                             type='button'
-                            onClick={this.closeModal}
+
+
+
+
+                                onClick={this.closeModal}
                             className='btn btn-danger'>
                             Cancel
-                    </button>
+                              </button>
                     </div>
                 </Modal>
+
+                
             </>
 
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "../../../styles/rental/_rentalCreateFormStyle.scss";
 import { createRental } from "../../../actions/rentalAction";
+import ImageUpload from "../../FileUpload/ImageUpload";
 import { Redirect } from "react-router-dom";
 
 
@@ -15,6 +16,7 @@ class RentalCreate extends Component {
             bedrooms: "",
             description: "",
             category: "",
+            image: '',
             shared: false,
             errors: [],
             redirect: false
@@ -28,9 +30,14 @@ class RentalCreate extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-
-
     };
+    onFileChange = value => {
+        console.log('imgValue',value); 
+        this.setState({
+         image: value
+        });
+      };
+
     onChange = (e) => {
         if(e.target.checked){
             this.setState({
@@ -46,15 +53,18 @@ class RentalCreate extends Component {
     onSubmit = e => {
         e.preventDefault();
 
-        const formData = {};
-        formData.title = this.state.title;
-        formData.city = this.state.city;
-        formData.dailyRate = this.state.dailyRate;
-        formData.bedrooms = this.state.bedrooms;
-        formData.street = this.state.street;
-        formData.description = this.state.description;
-        formData.category = this.state.category;
-        formData.shared = this.state.shared;
+        const formData = new FormData();
+
+        formData.append("title", this.state.title);
+        formData.append("image", this.state.image);
+        formData.append("city", this.state.city);
+        formData.append("category", this.state.category);
+        formData.append("description", this.state.description);
+        formData.append("street", this.state.street);
+        formData.append("shared", this.state.shared);
+        formData.append("dailyRate", this.state.dailyRate);
+        formData.append("bedrooms", this.state.bedrooms);
+    
         createRental(formData).then((rental)=>{
             this.setState({
                 redirect: true
@@ -126,6 +136,10 @@ class RentalCreate extends Component {
                                         placeholder="Bedrooms"
                                         id="inputWith100"
                                     />
+                                    <ImageUpload
+                                    onChange={this.onFileChange}
+                                    label='upload image'
+                                     />
                                 </div>
                                 <div class="dropdown">
                                     <label for="select-choice">Category</label>
