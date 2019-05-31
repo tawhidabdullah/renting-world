@@ -23,6 +23,16 @@ router.get('/manage', passport.authenticate("jwt", {
 router.get('/:id', rentalControllers.get_single_rental_by_id);
 
 
+ 
+// @route POST /api/rentals/:id
+// @decription getting a single rental by id 
+// @access Public
+router.get('/:id/image',passport.authenticate("jwt", {
+    session: false
+}), rentalControllers.getimgofARental);
+
+
+
 // @route POST /api/:id/verify-user
 // @decription getting a single rental for update and verify the user 
 // @access Private

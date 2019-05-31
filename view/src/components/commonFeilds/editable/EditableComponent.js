@@ -1,69 +1,69 @@
-import  { Component } from 'react'; 
+import { Component } from "react";
 import "../../../styles/rental/_editableComponent.scss";
 
+
 class EditableComponent extends Component {
-    state = {
-        isActive: false,
-        value: "",
-        originVavlue: ""
-    };
+  state = {
+    isActive: false,
+    value: "",
+    originVavlue: "",
+  };
 
-    componentDidMount() {
-       this.setOriginValue(); 
-    };
+  
 
-    componentDidUpdate(){
-        const {errors, entityField, resetErrors} = this.props; 
+  componentDidMount() {
+    this.setOriginValue();
+  }
 
-        if(errors && errors.length > 0 && errors[0].title === entityField){ 
-            this.setOriginValue(); 
-            resetErrors(); 
+  componentDidUpdate() {
+    const { errors, entityField, resetErrors } = this.props;
 
-        }; 
-    }; 
-
-    setOriginValue = () => {
-        const { entity, entityField } = this.props;
-        const value = entity[entityField];
-
-        this.setState({
-            value,
-            originVavlue: value
-        }); 
+    if (errors && errors.length > 0 && errors[0].title === entityField) {
+      this.setOriginValue();
+      resetErrors();
     }
+  }
 
-    update = () => {
-        const { value, originVavlue } = this.state;
-        const { updateEntity, entityField } = this.props;
+  setOriginValue = () => {
+    const { entity, entityField } = this.props;
+    const value = entity[entityField];
 
-        if (value !== originVavlue) {
-            updateEntity({
-                [entityField]: value
-            });
+    this.setState({
+      value,
+      originVavlue: value
+    });
+  };
 
-            this.setState({ isActive: false, originVavlue: value })
-        }
+  update = async rentalId => {
+    const { value, originVavlue } = this.state;
+    const { updateEntity, entityField } = this.props;
 
+    if (value !== originVavlue) {
+      updateEntity({
+        [entityField]: value
+      });
+
+      this.setState({ isActive: false, originVavlue: value });
     }
+  };
 
-    enableEdit = () => {
-        this.setState({
-            isActive: true
-        })
-    };
+  enableEdit = () => {
+    this.setState({
+      isActive: true
+    });
+  };
 
-    disableEdit = () => {
-        this.setState({
-            isActive: false
-        })
-    };
+  disableEdit = () => {
+    this.setState({
+      isActive: false
+    });
+  };
 
-    handleChange(e) {
-        this.setState({
-            value: e.target.value
-        })
-    }
-    
-};
+  handleChange(e) {
+    this.setState({
+      value: e.target.value
+    });
+  }
+}
 
-export default EditableComponent; 
+export default EditableComponent;

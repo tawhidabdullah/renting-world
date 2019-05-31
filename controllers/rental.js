@@ -29,6 +29,25 @@ exports.get_single_rental_by_id = (req, res) => {
         })
 };
 
+exports.getimgofARental = (req,res) => {
+    const rentalId = req.params.id; 
+   
+    Rental.findById(rentalId)
+    .select('image')
+        .exec((err, rental) => {
+            if (err) {
+                res.status(404).send({
+                    errors: [{
+                        title: "Rental Error!"
+                    }, {
+                        detail: "Could not found Rental!"
+                    }]
+                })
+            }
+            return res.json(rental.image);
+        })
+}
+
 
 exports.get_single_rental_by_id_verify_user = (req, res) => {
     const user = req.user.id;

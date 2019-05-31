@@ -2,6 +2,7 @@ import React from "react";
 import EditableComponent from "./EditableComponent";
 import "../../../styles/rental/_editableComponent.scss";
 import Upload from "../../FileUpload/test";
+import { fetchRentalImg } from "../../../actions/rentalAction";
 
 class EditableImage extends EditableComponent {
     handleImageUpload = (image) => {
@@ -10,15 +11,26 @@ class EditableImage extends EditableComponent {
         }); 
 
         this.update();
+        this.setImgValue(); 
+
     }
+
+     setImgValue = async () => {
+            await fetchRentalImg(this.props.entity._id).then(img => {
+              return this.setState({ isActive: false, value: img });
+             });
+           }
+  
   render() {
+    
     const { isActive, value } = this.state;
     return (
       <div className="editableImage">
         {!isActive && (
           <>
-            <img src={`/${value}`} />
+            {value && <img src={`/${value}`} />}
             <button
+            style={{marginTop: "5px"}}
               onClick={this.enableEdit}
               className="btn btn-warning btn-editable-image"
               type="button"
