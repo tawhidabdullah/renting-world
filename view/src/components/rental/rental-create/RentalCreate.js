@@ -3,6 +3,7 @@ import "../../../styles/rental/_rentalCreateFormStyle.scss";
 import { createRental } from "../../../actions/rentalAction";
 import ImageUpload from "../../FileUpload/ImageUpload";
 import { Redirect } from "react-router-dom";
+import Upload from "../../FileUpload/test";
 
 
 class RentalCreate extends Component {
@@ -136,9 +137,8 @@ class RentalCreate extends Component {
                                         placeholder="Bedrooms"
                                         id="inputWith100"
                                     />
-                                    <ImageUpload
-                                    onChange={this.onFileChange}
-                                    label='upload image'
+                                     <Upload 
+                                     onChange={this.onFileChange}
                                      />
                                 </div>
                                 <div class="dropdown">
@@ -177,7 +177,6 @@ class RentalCreate extends Component {
                             </form>
                         </div>
                         <div className='col-md-6'>
-                            <button className='btn btn-primary'> Back to Rentals</button>
                         </div>
                     </div>
                 </div>

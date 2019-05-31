@@ -36,7 +36,6 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "react-bootstrap-daterangepicker": "^4.1.0",
-    "react-toastify": "^4.0.0",
     "request": "^2.88.0",
     "stripe": "^7.1.0",
     "validator": "^10.11.0"

@@ -6,6 +6,7 @@ import setAuthorizationToken from "../utilities/setAuthorizationToken";
 import { StripeProvider } from "react-stripe-elements";
 import { ToastContainer } from "react-toastify";
 
+
 // IMPORT REDUX STORE
 import store from "../store";
 import { setCurrentUser } from "../actions/authAction";

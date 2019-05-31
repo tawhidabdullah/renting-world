@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "../../styles/editable/_imageUpload.scss";
 import ReactCrop, { makeAspectCrop } from "react-image-crop";
+import { toast } from "react-toastify";
 
-class ImageUpload extends Component {
+class Upload extends Component {
   constructor() {
     super();
     this.setupReader();
@@ -11,11 +12,12 @@ class ImageUpload extends Component {
       imageBase64: "",
       pending: false,
       status: "INIT",
+      showSuccessalert: false,
       crop: {
         x: 10,
         y: 10,
         width: 80,
-        height: 80,
+        height: 80
       },
       croppedImage: {},
       initialImageBase64: ""
@@ -39,7 +41,6 @@ class ImageUpload extends Component {
     }
   };
 
-
   setupReader = () => {
     this.reader = new FileReader();
 
@@ -51,41 +52,49 @@ class ImageUpload extends Component {
         this.setState({
           imageBase64
         });
-      }else{
+      } else {
         this.setState({
-          imageBase64, initialImageBase64: imageBase64
+          imageBase64,
+          initialImageBase64: imageBase64
         });
       }
     });
   };
 
-
   uploadImage = async () => {
     const { onChange } = this.props;
-    const {croppedImage } = this.state;
+    const { croppedImage } = this.state;
 
     if (croppedImage) {
       await this.setState({
-        pending: true,
-        status: "INIT"
+        pending: true
       });
 
       window.setTimeout(() => {
-        this.setState({
-          pending: false,
-          status: "INIT"
-        });
+       this.resetToDefaultState(); 
         onChange(croppedImage);
+        this.setState({
+            showSuccessalert: true
+        })
+
+        window.setTimeout(()=>{
+            this.setState({
+                showSuccessalert: false
+            })
+        }, 4000); 
+       
       }, 4000);
     }
 
-    // uploadImage(selectedFile)
-    // .then((uploadedImage)=>{
-    //   this.onSuccess(uploadedImage);
-    // }, (error)=>{
-    //   this.onError(error);
-    // })
   };
+
+  showSuccessalert = () => {
+     return(
+        <div className='alert alert-success success-alert'>
+            Image has Uploaded Successfully!
+        </div>
+     )
+  }
 
   renderSpinningCircle = () => {
     const { pending } = this.state;
@@ -94,27 +103,48 @@ class ImageUpload extends Component {
     }
   };
 
+  resetToDefaultState = () => {
+    this.setState({
+      pending: false,
+      status: "INIT",
+      selectedFile: undefined,
+      croppedImage: {},
+      imageBase64: "",
+      initialImageBase64: "",
+      crop: { }
+    });
+  };
+
   onImageLoaded = image => {
+    if (image.naturalWidth < 950 && image.naturalHeight < 720) {
+        console.log('get a life')
+      this.resetToDefaultState();
+      return toast.error("Minium width of an image is 950px and height 720px");
+    }; 
+
     this.setState({
       crop: makeAspectCrop(
         {
           x: 10,
           y: 10,
-          aspect: 16 / 9,
-          width: 60
+          aspect: 4 / 3,
+          width: 50
         },
         image.width / image.height
       )
     });
   };
 
-   onCropCompleted =  async (crop, pixelCrop) =>  {
+  onCropCompleted = async (crop, pixelCrop) => {
     const { selectedFile, initialImageBase64 } = this.state;
-    console.log('crop', crop, 'pixel crop', pixelCrop); 
-    if (selectedFile) {
+    if (selectedFile && (pixelCrop.height > 0 && pixelCrop.width > 0)) {
       const img = new Image();
       img.src = initialImageBase64;
-      const croppedImage = await getCroppedImg(img, crop, selectedFile.name);
+      const croppedImage = await getCroppedImg(
+        img,
+        pixelCrop,
+        selectedFile.name
+      );
       this.setState({
         croppedImage
       });
@@ -124,7 +154,7 @@ class ImageUpload extends Component {
   };
 
   render() {
-    const { selectedFile, imageBase64, crop, initialImageBase64 } = this.state;
+    const { selectedFile, imageBase64, crop, initialImageBase64, showSuccessalert } = this.state;
     return (
       <div className="img-upload-container">
         <label className="img-upload btn btn-secondary">
@@ -165,6 +195,7 @@ class ImageUpload extends Component {
             {this.renderSpinningCircle()}
           </div>
         )}
+        {showSuccessalert && this.showSuccessalert()}
       </div>
     );
   }
@@ -202,4 +233,4 @@ function getCroppedImg(image, pixelCrop, fileName) {
   });
 }
 
-export default ImageUpload;
+export default Upload;
