@@ -50,7 +50,7 @@ class RentalManageCard extends React.Component {
                             </button>
 
                                 <Link
-                                    to={{ pathname: `/rentals/${rental._id}`, state: { isUpdate: true } }}
+                                    to={{ pathname: `/rentals/${rental._id}/edit`, state: { isUpdate: true } }}
                                     className='btn btn-warning' style={{
                                         marginLeft: "10px"
                                     }}>edit</Link>

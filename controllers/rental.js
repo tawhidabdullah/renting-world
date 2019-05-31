@@ -5,12 +5,12 @@ const User = require("../models/user");
 const validateRentalsInput = require("../validation/rental");
 const validateupdateRentalInput = require("../validation/updateRental");
 
-// importing mongoose error 
-const mongooseError = require("../helpers/mongoose")
+// importing mongoose error  
+const mongooseError = require("../helpers/mongoose")   
 
 
 exports.get_single_rental_by_id = (req, res) => {
-    const rentalId = req.params.id;
+    const rentalId = req.params.id; 
 
     Rental.findById(rentalId)
         .populate("user", 'name -_id avatar')
@@ -242,17 +242,38 @@ exports.manageRentals = (req, res) => {
 
 
 exports.updateRental = (req, res) => {
+   
+   
+    const rentalBody = Object.assign({},req.body); 
+
+    let image = req.file;
 
     const {
         errors,
         isValid
-    } = validateupdateRentalInput({ ...req.body });
+    } = validateupdateRentalInput(rentalBody);
 
+    
+    if (!image) {
+        errors.imgError = "img shoud be send buddy";
+    }
+
+    // if input is not valid then send and error response
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
-    const rentalData = req.body;
+
+    let rentalData  = req.body;
+
+    let imgUrl = image.path;
+
+    if(imgUrl){
+        rentalData = {
+            image: imgUrl
+        }; 
+    }; 
+
 
     const user = req.user.id;
     const rentalId = req.params.id;
@@ -263,9 +284,8 @@ exports.updateRental = (req, res) => {
             if (err) {
                 return res.status(422).send({
                     errors: mongooseError.normalizeMongooseError(err.errors)
-                })
+                }); 
             };
-
             if (rental.user.id !== user) {
                 return res.status(404).send({
                     errors: [{
@@ -289,38 +309,3 @@ exports.updateRental = (req, res) => {
         })
 };
 
-// exports.uploadImg = (req,res) => {
-//  const errors = {}; 
-
-//   let image = req.file;
-
-//   if (!image) {
-//     errors.imgError = "img shoud be send buddy";
-//   }
-
-  
-//   if (Object.keys(errors) > 0) {
-//     return res.status(400).json(errors);
-//   }
-
-//   let imgUrl = image.path;
-
-//   const productFields = {};
-
- 
-//     (productFields.productImage = imgUrl);
-
-//   // search the user by loged in user id
-//   Rental.findOne({ _id: req.body._id }).then(Rental => {
-//     // if we have a product we are gonna update it
-//     if (product) {
-//       Product.findOneAndUpdate(
-//         { _id: req.body._id },
-//         { $set: productFields },
-//         { new: true }
-//       ).then(product => {
-//         res.json(product);
-//       });
-//     }
-//   });
-// }

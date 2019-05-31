@@ -4,9 +4,9 @@ const isEmpty = require('./isempty');
 module.exports = function validateupdateRentalInput(data) { // export validateRegister function 
     let errors = [];
     
-    const value = Object.keys(data)[0]; 
-
     
+    const value = Object.keys(data)[0];  
+   
     data.city = !isEmpty(data.city) ? data.city : '';
     data.street = !isEmpty(data.street) ? data.street : '';
     data.description = !isEmpty(data.description) ? data.description : '';
@@ -15,7 +15,15 @@ module.exports = function validateupdateRentalInput(data) { // export validateRe
     data.dailyRate = !isEmpty(data.dailyRate) ? data.dailyRate : '';
     data.bedrooms = !isEmpty(data.bedrooms) ? data.bedrooms : '';
 
-
+    // if(value === 'image' && isEmpty(data.image)){
+    //     data.image = !isEmpty(data.image) ? data.image : '';
+    //     errors.push({title: "image", detail: 'image field is requied!'})
+    //     return {
+    //         errors,
+    //         isValid: isEmpty(errors)
+    //     }
+    // }
+ 
     if (value === 'city' && validator.isEmpty(data.city)) {
         errors.push({title: "city", detail: 'City field is required'})
         return {

@@ -4,7 +4,7 @@ const Rental = require("../models/rental")
 const mongooseError = require('../helpers/mongoose'); 
 const User = require("../models/user")
 
-// IMPORT KEYS
+// IMPORT KEYS 
 const config = require('../config/keys');
 const stripe = require('stripe')(config.stripeSk);
 
@@ -35,13 +35,13 @@ exports.getPendingPayments = (req, res) => {
 
 
 
-exports.confirmPayment = (req, res) => {
+exports.confirmPayment = (req, res) => { 
 
     const payment = req.body;
     const user = req.user.id;
 
-    Payment.findById(payment._id)
-        .populate("toUser")
+    Payment.findById(payment._id) 
+        .populate("toUser") 
         .populate("booking")
         .exec(async (err, payment) => {
             if (err) {

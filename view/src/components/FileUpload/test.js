@@ -65,6 +65,8 @@ class Upload extends Component {
     const { onChange } = this.props;
     const { croppedImage } = this.state;
 
+    console.log("croppedImage",croppedImage); 
+
     if (croppedImage) {
       await this.setState({
         pending: true
@@ -72,7 +74,12 @@ class Upload extends Component {
 
       window.setTimeout(() => {
        this.resetToDefaultState(); 
-        onChange(croppedImage);
+        if(onchange){
+          onChange(croppedImage);
+        }
+        if(this.props.onUpdateChange){
+          this.props.onUpdateChange(croppedImage); 
+        }
         this.setState({
             showSuccessalert: true
         })

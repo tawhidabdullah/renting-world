@@ -134,7 +134,13 @@ const updateRentalFail = (errors) => {
 
 
 export const updateRental = (rentalData, id ) => dispatch => {
-  return axios.patch(`/api/rentals/${id}`, rentalData)
+  let formData = rentalData;
+  console.log("formData",formData); 
+//   if(typeof rentalData.image !== "undefined"){
+//     formData = {image : rentalData.image.name}; 
+// }
+
+  return axios.patch(`/api/rentals/${id}`, formData)
     .then(res => res.data)
     .then(updatedRental => dispatch(updateRentalSuccess(updatedRental)))
     .catch(({

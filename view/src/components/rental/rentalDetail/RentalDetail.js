@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchRentalsById, verifiyRentalOwner } from "../../../actions/rentalAction";
+import { fetchRentalsById } from "../../../actions/rentalAction";
 import { getReviews } from "../../../actions/reviewAction";
 import RentalDetailInfo from "./RentalDetailInfo";
-import RentalDetailUpdate from "./RentalDetailUpdate";
 import RentalMap from "./RentalMap";
 import Booking from "../../booking/Booking";
 import Review from "./Review";
-import UserGuard from "../../auth/UserGuard";
+
 
 
 
@@ -31,50 +30,15 @@ class RentalDetail extends Component {
 
     };
 
-    componentDidMount() {
-        const { isUpdate } = this.props.location.state || false;
-        if (isUpdate) {
-            this.verifyRentalOwner();
-        }
-
-    }
-
-    renderRentalDetail = (rental, errors) => {
-        const { isUpdate } = this.props.location.state || false;
-
-        return isUpdate ?
-            <UserGuard
-                isAllowed={this.state.isAllowed}
-                isFetching={this.state.isFetching}
-            >
-                <RentalDetailUpdate
-                    rental={rental}
-                    errors={errors}
-                    dispatch={this.props.dispatch} />
-            </UserGuard> :
-            <RentalDetailInfo rental={rental} />;
-    }
-
-
     getBookingReviews = (rentalId) => {
         getReviews(rentalId).then((reviews) => {
             this.setState({ reviews })
         });
     };
 
-    verifyRentalOwner = () => {
 
-        const rentalId = this.props.match.params.id;
-        this.setState({ isFetching: true });
-        return verifiyRentalOwner(rentalId).then(() => {
-            this.setState({ isFetching: false, isAllowed: true });
-        }, () => {
-            this.setState({ isFetching: false, isAllowed: false });
-        });
-
-    }
     render() {
-        const { rental, errors } = this.props;
+        const { rental } = this.props;
         const { image, _id, city, street } = rental;
         const { reviews } = this.state;
         if (_id) {
@@ -94,7 +58,7 @@ class RentalDetail extends Component {
                         <div className='details-section'>
                             <div className='row'>
                                 <div className='col-md-8'>
-                                    {this.renderRentalDetail(rental, errors)}
+                                <RentalDetailInfo rental={rental} />
                                 </div>
                                 <div className='col-md-4'> <Booking rental={rental} /></div>
                             </div>

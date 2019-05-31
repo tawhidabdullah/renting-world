@@ -30,6 +30,7 @@ import Rental from "../pages/rental/Rental";
 // import Error from "./pages/Error";
 
 import RentalDetail from "../components/rental/rentalDetail/RentalDetail";
+import RentalUpdate from "../components/rental/rentalDetail/RentalUpdate";
 import RentalSeachListing from "../components/rental/rental-Listing/RentalSeachListing";
 import RentalCreate from "../components/rental/rental-create/RentalCreate";
 
@@ -100,7 +101,8 @@ class App extends Component {
                   <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
                   <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
                   <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
-                  <Route exact path="/rentals/:id" component={RentalDetail} />
+                  <Route exact path="/rentals/:id" component={RentalUpdate} />
+                  <Route exact path="/rentals/:id/edit" component={RentalDetail} />
                 
                   {/* <Route component={Error} /> */}
                 </Switch>
