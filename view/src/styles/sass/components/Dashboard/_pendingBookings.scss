@@ -1,0 +1,314 @@
+$red-highlight: #F73030;
+$blue-highlight: #3094f7;
+$green-highlight: #60E6C0;
+
+$font-size: 16px;
+
+.containerPending {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card_pending {
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px #ccc;
+
+    text-align: center;
+    margin-left: 2em;
+    margin-top: 2em;
+
+    @media (max-width: 1334px) {
+        // max-width: 500px;
+        flex-grow: 1;
+    }
+
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    &-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        font-size: 1.5em;
+        min-height: 100px;
+        padding: 10px;
+
+
+        &-description {
+            color: rgb(95, 95, 95);
+            padding-bottom: 10px;
+
+            
+
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        &-bookedDate {
+            font-size: 1.3em;
+            color: #3d5170;
+            // padding-top: 1em;
+            display: block;
+            padding: 10px;
+
+        }
+
+        &-cost {
+            font-size: 1.3em;
+            color: #3d5170;
+            // padding-top: 1em;
+            display: block;
+            padding: 10px;
+        }
+
+
+    }
+
+
+    h3 {
+        font-size: $font-size*1.75;
+        font-weight: 400;
+        margin: 0;
+        padding: 2rem 0 0;
+    }
+
+    i {
+        font-size: $font-size*3.5;
+        padding: 1.25rem 0 0;
+    }
+
+    .card-tagline {
+        font-size: $font-size*1.25;
+        margin: 0;
+        padding: 1.25rem 0 0;
+    }
+
+    .card-subtag {
+        color: hsla(100%, 100%, 100%, 0.9);
+        font-size: $font-size*0.75;
+    }
+
+    span {
+        display: block;
+        width: 100%;
+    }
+
+    .option-list {
+        background-color: #F4F4F4;
+        display: flex;
+        list-style: none;
+        justify-content: space-between;
+        padding: 0em 0;
+        margin: 0;
+        width: 100%;
+
+        .option {
+            border: solid 2px hsla(240, 23%, 97%, 0);
+            padding: 1em;
+            padding-bottom: 0.5em;
+            position: relative;
+            width: calc(1/3 * 100%);
+
+
+            .userImage {
+                width: 60px;
+                height: 60px;
+                margin-top: 10px;
+                margin-left: 13px;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+
+
+            .fa-check {
+                color: rgb(11, 144, 11);
+                cursor: pointer;
+            }
+
+            .fa-times {
+                color: rgb(230, 63, 33);
+                cursor: pointer;
+            }
+        }
+
+        .highlight-blue {
+            // border: 2px solid $blue-highlight;
+            // box-shadow: 0px 0px 10px $blue-highlight;
+            margin: 0;
+
+            span {
+                color: $blue-highlight;
+            }
+
+            .savings {
+                color: lighten($blue-highlight, 15%);
+            }
+
+            .pill {
+                background-color: $blue-highlight;
+                border-radius: 20px;
+                box-shadow: 0px 0px 25px $blue-highlight;
+                color: #fff;
+                display: block;
+                line-height: 1.5em;
+                font-size: 0.75em;
+                position: absolute;
+                top: -10px;
+                margin: 0 auto;
+                width: 75%;
+            }
+        }
+
+        .highlight-red {
+            border: 2px solid $red-highlight;
+            box-shadow: 0px 0px 10px $red-highlight;
+            margin: 0;
+
+            span {
+                color: $red-highlight;
+            }
+
+            .savings {
+                color: lighten($red-highlight, 15%);
+            }
+
+            .pill {
+                background-color: $red-highlight;
+                border-radius: 20px;
+                box-shadow: 0px 0px 25px $red-highlight;
+                color: #fff;
+                display: block;
+                line-height: 1.5em;
+                font-size: 0.75em;
+                position: absolute;
+                top: -10px;
+                margin: 0 auto;
+                width: 75%;
+            }
+        }
+
+        .highlight-green {
+            border: 2px solid $green-highlight;
+            box-shadow: 0px 0px 10px $green-highlight;
+            margin: 0;
+
+            span {
+                color: $green-highlight;
+            }
+
+            .savings {
+                color: lighten($green-highlight, 15%);
+            }
+
+            .pill {
+                background-color: $green-highlight;
+                border-radius: 20px;
+                box-shadow: 0px 0px 25px $green-highlight;
+                color: #fff;
+                display: block;
+                line-height: 1.5em;
+                font-size: 0.75em;
+                position: absolute;
+                top: -10px;
+                margin: 0 auto;
+                width: 75%;
+            }
+        }
+
+        .popular {
+            display: none;
+        }
+
+        .number {
+            font-size: 2em;
+        }
+
+        .time-frame {
+            font-size: 0.75em;
+        }
+
+        .cost {
+            font-size: 0.75em;
+            font-weight: 800;
+        }
+
+        .savings {
+            font-size: 0.75em;
+            padding: 0.5em 0 0;
+        }
+    }
+
+    .pendings_cta {
+        padding: 1em 0;
+
+
+        .pendings_cta-btn {
+            border-radius: 25px;
+            box-shadow: 0px 0px 25px #c6c6c6;
+            color: #fff;
+            display: block;
+            margin: 0 auto;
+            padding: 10px 0;
+            text-decoration: none;
+            width: 75%;
+        }
+
+        .btn-purple {
+            background: linear-gradient(90deg, #5f23ae 0%, #8440be 31%, #c86dd7 100%);
+            background-size: 150% auto;
+            background-position: 31% 0;
+            transition: background-position 0.4s;
+
+            &:hover {
+                background-position: 100% 0;
+            }
+        }
+
+        .btn-red {
+            background: linear-gradient(90deg, #AF1310 0%, #DE3A37 50%, #FF4441 100%);
+            background-size: 150% auto;
+            background-position: 31% 0;
+            transition: background-position 0.4s;
+
+            &:hover {
+                background-position: 100% 0;
+            }
+        }
+
+        .btn-teal {
+            background: linear-gradient(90deg, #1B8B77 0%, #38BDA6 50%, #60E6C0 100%);
+            background-size: 150% auto;
+            background-position: 31% 0;
+            transition: background-position 0.4s;
+
+            &:hover {
+                background-position: 100% 0;
+            }
+        }
+
+        .decline {
+            color: #C9C9C9;
+            font-weight: 700;
+            display: block;
+            padding: 1em 0 0;
+            margin: auto;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            width: 40%;
+
+            &:hover {
+                color: #999;
+            }
+        }
+    }
+}

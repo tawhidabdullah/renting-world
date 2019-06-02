@@ -4,12 +4,12 @@ import "../../../styles/rental/_editableComponent.scss";
 
 class EditableComponent extends Component {
   state = {
-    isActive: false,
+    isActive: false, 
     value: "",
     originVavlue: "",
   };
 
-  
+
 
   componentDidMount() {
     this.setOriginValue();

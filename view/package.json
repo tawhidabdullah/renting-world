@@ -41,8 +41,7 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js src/**/*.jsx"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

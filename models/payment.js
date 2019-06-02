@@ -20,3 +20,4 @@ module.exports = Payment;
 
 // fromUser => user who made booking , and this user will pay for the booking
 // toUser => owner of the rental on which booking was created - this user will take money
+

@@ -41,7 +41,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
     .connect(db)
     .then(() => {
-        console.log("mongoDB Connected !");
+        console.log("mongoDB Connected !"); 
     })
     .catch(err => console.log(err));
 
@@ -74,4 +74,4 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log(`Hey Tawhid Abdullah, server is runnig on ${port}...`);
-});
+});    

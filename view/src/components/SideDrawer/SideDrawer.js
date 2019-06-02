@@ -18,7 +18,6 @@ const SideDrawer = props => {
                 color: "#bbb",
                 marginRight: "13px",
                 fontSize: "19px",
-                marginTop: "14px"
               }}
             />
             Books
@@ -32,7 +31,6 @@ const SideDrawer = props => {
                 color: "#bbb",
                 marginRight: "13px",
                 fontSize: "19px",
-                marginTop: "14px"
               }}
             />
             Cars
@@ -46,7 +44,6 @@ const SideDrawer = props => {
                 color: "#bbb",
                 marginRight: "13px",
                 fontSize: "19px",
-                marginTop: "14px"
               }}
             />
             Electronics
@@ -60,7 +57,6 @@ const SideDrawer = props => {
                 color: "#bbb",
                 marginRight: "13px",
                 fontSize: "19px",
-                marginTop: "14px"
               }}
             />
             Cloths

@@ -23,7 +23,7 @@ class RentalSeachInput extends Component {
     }
     render() {
         return (
-            <div class="search">
+            <div class="rental__search">
                 <div class="form__field">
                     <input
                         onKeyPress={this.handleKeyPress}

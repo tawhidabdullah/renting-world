@@ -39,7 +39,7 @@ class Toolbar extends Component {
         <li>
           <Link to="/dashboard">
             {" "}
-            <i className="fa fa-dashboard"> </i> Dashboard
+             Dashboard
           </Link>
         </li>
 

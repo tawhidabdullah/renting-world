@@ -1,0 +1,249 @@
+.card {
+    max-width: 1000px;
+    margin: auto;
+}
+
+>h1,
+>p {
+    text-align: center;
+}
+
+>h1 {
+    margin: 31px;
+    color: #ffffff;
+}
+
+>p {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.booking-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 20px;
+    padding: 20px;
+    border-radius: .625rem;
+    box-shadow: 0 2px 0 rgba(90, 97, 105, .11), 0 4px 8px rgba(90, 97, 105, .12), 0 10px 10px rgba(90, 97, 105, .06), 0 7px 70px rgba(90, 97, 105, .1);
+}
+
+
+.card_rentals {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+
+    @media (max-width: 566px) {
+        max-height: 200px;
+    }
+
+    @media (max-width: 448px) {
+        max-height: 170px;
+    }
+
+    &__title {
+        font-size: 2.325rem;
+        font-weight: 500;
+        line-height: 1;
+        color: #3d5170;
+
+        @media (max-width: 514px) {
+            font-size: 2rem;
+        }
+
+        @media (max-width: 445px) {
+            font-size: 1.8rem;
+        }
+
+        @media (max-width: 335px) {
+            font-size: 1.225rem;
+        }
+    }
+
+    &__description {
+        margin-top: 5px;
+        letter-spacing: 1px;
+        font-size: 1.525rem;
+        font-weight: 500;
+        line-height: 1.3;
+        color: #bbb;
+
+        @media (max-width: 514px) {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 335px) {
+            font-size: .925rem;
+        }
+
+    }
+
+    .card-thumb {
+        max-width: 200px;
+        max-height: 200px;
+        z-index: 2;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);  
+        cursor: pointer;  
+
+        img {
+     
+           height: 202px;
+            width: 100%;
+            object-fit: cover;
+
+            
+        @media (max-width: 856px) {
+        
+            height: 100%;
+        }
+
+        }
+
+        @media (max-width: 566px) {
+        
+            max-width: 150px;
+            max-height: 150px;
+        }
+
+        @media (max-width: 514px) {
+            max-width: 120px;
+            max-height: 120px;
+        }
+
+        @media (max-width: 445px) {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        @media (max-width: 365px) {
+            max-width: 70px;
+            max-width: 70px;
+        }
+
+
+    }
+
+    .card-content {
+        width: 100%;
+        min-height: 250px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        z-index: 1;
+
+        @media (max-width: 445px) {
+            padding: 10px;
+        }
+
+        @media (max-width: 365px) {
+            padding: 5px 5px 5px 8px;
+        }
+
+
+        // @media (max-width: 767px) {
+        //     width: 100%;
+        //     padding-left: 20px;
+        //     padding-top: 160px;
+        //     margin-left: 0px;
+        //     margin-top: -140px;
+        //     text-align: center;
+
+        // }
+    }
+
+    .card-date {
+        font-size: 1rem;
+        // font-weight: bold;
+        font-weight: 500;
+
+
+        @media (max-width: 395px) {
+            font-size: .725rem;
+        }
+    }
+
+    .card-btn {
+        display: inline-block;
+        text-transform: capitalize;
+        padding: 10px 20px;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        width: max-content;
+        font-size: 1.5rem;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+
+        @media (max-width: 514px) {
+            padding: 8px 15px;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 445px) {
+            padding: 6px 12px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 365px) {
+            padding: 4px 9px;
+            font-size: 1rem;
+        }
+
+
+        &__default {
+            background-image: linear-gradient(90deg, #6fc6a9, #058ba9);
+
+        }
+
+        &__delete {
+            background-image: linear-gradient(90deg, #cc2541, #dd4a25);
+            margin-left: 20px;
+
+            @media (max-width: 566px) {
+                margin-left: 10px;
+            }
+
+            @media (max-width: 445px) {
+                margin-left: 5px;
+            }
+
+            @media (max-width: 270px) {
+                margin-left: 0px;
+            }
+        }
+
+        &__edit {
+            background-image: linear-gradient(90deg, #d6b33e, #d2e28c);
+            margin-left: 20px;
+
+            @media (max-width: 566px) {
+                margin-left: 10px;
+            }
+
+            @media (max-width: 445px) {
+                margin-left: 5px;
+            }
+
+            @media (max-width: 365px) {
+                margin-top: 5px;
+            }
+        }
+
+        // @media (max-width: 767px) {
+        //     margin: auto;
+        // }
+    }
+
+    // @media (max-width: 767px) {
+    //     flex-direction: column;
+    // }
+}
+
+;

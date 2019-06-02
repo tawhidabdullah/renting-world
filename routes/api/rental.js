@@ -17,7 +17,7 @@ router.get('/manage', passport.authenticate("jwt", {
 
 
  
-// @route POST /api/rentals/:id
+// @route POST /api/rentals/:id 
 // @decription getting a single rental by id 
 // @access Public
 router.get('/:id', rentalControllers.get_single_rental_by_id);

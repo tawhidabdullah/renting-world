@@ -6,7 +6,6 @@ import setAuthorizationToken from "../utilities/setAuthorizationToken";
 import { StripeProvider } from "react-stripe-elements";
 import { ToastContainer } from "react-toastify";
 
-
 // IMPORT REDUX STORE
 import store from "../store";
 import { setCurrentUser } from "../actions/authAction";
@@ -34,11 +33,12 @@ import RentalUpdate from "../components/rental/rentalDetail/RentalUpdate";
 import RentalSeachListing from "../components/rental/rental-Listing/RentalSeachListing";
 import RentalCreate from "../components/rental/rental-create/RentalCreate";
 
-// import Rental Manage and booking manage 
+// import Rental Manage and booking manage
 import RentalManage from "../components/rental/rental-manage/RentalManage";
 import BookingManage from "../components/booking/booking-manage/BookingManage";
 
-
+// import Dashboard
+import Dashboard from "../Dashboard/container/Dashboard";
 
 // CHECK FOR TOKEN
 if (localStorage.jwttoken) {
@@ -84,37 +84,63 @@ class App extends Component {
     }
 
     return (
-      <StripeProvider apiKey='pk_test_LWCI4vSjDVkoxeXT8RmMyC2h'>
-          <Provider store={store}>
-            <div style={{ height: "100%" }}>
-            <ToastContainer/>
-              {/* <Navbar /> */}
-              <Toolbar drawerClickHandler={this.drawerToggleHandler} />
-              {sideDrawerAndBackDrop}
-              <main>
-                <Switch>
-                  {/* <Route exact path="/" component={Home} /> */}
-                  <Route exact path="/" render={() => <Redirect to='/rentals' />} />
-                  <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/rentals" component={Rental} />
-                  <Route exact path="/rentals/:city/homes" component={RentalSeachListing} />
-                  <PrivateRoute exact path="/rentals/manage" component={RentalManage} />
-                  <PrivateRoute exact path="/rentals/new" component={RentalCreate} />
-                  <Route exact path="/rentals/:id" component={RentalUpdate} />
-                  <Route exact path="/rentals/:id/edit" component={RentalDetail} />
-                
-                  {/* <Route component={Error} /> */}
-                </Switch>
-                <Switch>
-                
-                </Switch>
-                <Switch>
-                  <PrivateRoute exact path="/bookings/manage" component={BookingManage} />
-                </Switch>
-              </main>
-            </div>
-          </Provider>
+      <StripeProvider apiKey="pk_test_LWCI4vSjDVkoxeXT8RmMyC2h">
+        <Provider store={store}>
+          <div style={{ height: "100%" }}>
+            <ToastContainer />
+            {/* <Navbar /> */}
+            <Toolbar drawerClickHandler={this.drawerToggleHandler} />
+            {sideDrawerAndBackDrop}
+            <main>
+              <Switch>
+                {/* <Route exact path="/" component={Home} /> */}
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Redirect to="/rentals" />}
+                />
+
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/rentals" component={Rental} />
+                <Route
+                  exact
+                  path="/rentals/:city/homes"
+                  component={RentalSeachListing}
+                />
+                <PrivateRoute
+                  exact
+                  path="/rentals/manage"
+                  component={RentalManage}
+                />
+                <PrivateRoute
+                  exact
+                  path="/rentals/new"
+                  component={RentalCreate}
+                />
+                <Route exact path="/rentals/:id" component={RentalUpdate} />
+                <Route
+                  exact
+                  path="/rentals/:id/edit"
+                  component={RentalDetail}
+                />
+
+                {/* <Route component={Error} /> */}
+              </Switch>
+              <Switch />
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/bookings/manage"
+                  component={BookingManage}
+                />
+              </Switch>
+            </main>
+          </div>
+          <Switch>
+            <Route exact path="/dashboard" component={Dashboard} />
+          </Switch>
+        </Provider>
       </StripeProvider>
     );
   }
