@@ -11,7 +11,8 @@ import PendingCard from "./PendingCard";
 import "../../../styles/sass/components/Dashboard/_pendingBookings.scss";
 class PendingBookings extends Component {
   state = {
-    pendingPayments: []
+    pendingPayments: [],
+    isFetching: true
   };
   componentDidMount() {
     this.getPendingPayments();
@@ -20,9 +21,26 @@ class PendingBookings extends Component {
   getPendingPayments = () => {
     getPendingPayments()
       .then(pendingPayments => {
-        return this.setState({ pendingPayments });
+        console.log("fromPendingBookings:", pendingPayments);
+
+        if (pendingPayments) {
+          const theRealPendinPayments = pendingPayments.filter(payment => {
+            return payment.status === "pending";
+          });
+          return this.setState({
+            ...this.state,
+            isFetching: false,
+            pendingPayments: theRealPendinPayments
+          });
+        }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        this.setState({
+          ...this.state,
+          isFetching: false
+        });
+        console.error(err);
+      });
   };
 
   renderPayments = payments => {
@@ -88,7 +106,8 @@ class PendingBookings extends Component {
   };
 
   render() {
-    const { pendingPayments } = this.state;
+    const { pendingPayments, isFetching } = this.state;
+
     return (
       <>
         <div class="create-rental-heading">
@@ -96,8 +115,13 @@ class PendingBookings extends Component {
           <h2 class="page-title">Pending payments</h2>
         </div>
         <div class="containerPending">
-        <Error/> 
-          {/* {pendingPayments.length === 0 ? : this.renderPayments(pendingPayments)} */}
+          {isFetching ? <Spinner /> : ""}
+
+          {!isFetching && pendingPayments.length === 0 ? (
+            <Error title="No Pending Payments Bookings Found" />
+          ) : (
+            this.renderPayments(pendingPayments)
+          )}
         </div>
       </>
     );

@@ -84,7 +84,7 @@ class RentalContent extends Component {
           <div className="rental_card-list">
             {isFetching ? <Spinner /> : ""}
             {userRentals.length === 0 && !isFetching ? (
-              <Error />
+              <Error title="No Rental Found!" />
             ) : (
               this.renderManageCard(userRentals)
             )}
