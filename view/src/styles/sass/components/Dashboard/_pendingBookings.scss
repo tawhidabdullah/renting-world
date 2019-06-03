@@ -117,8 +117,8 @@ $font-size: 16px;
             .userImage {
                 width: 60px;
                 height: 60px;
-                margin-top: 10px;
-                margin-left: 13px;
+                margin-top: 15px;
+                margin-left: 5px;
 
                 img {
                     height: 100%;
@@ -160,11 +160,12 @@ $font-size: 16px;
                 color: #fff;
                 display: block;
                 line-height: 1.5em;
-                font-size: 0.75em;
+                font-size: 15px;
                 position: absolute;
+                padding: 3px 6px;
                 top: -10px;
                 margin: 0 auto;
-                width: 75%;
+                width: 95%;
             }
         }
 

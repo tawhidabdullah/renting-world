@@ -65,43 +65,40 @@ class Upload extends Component {
     const { onChange } = this.props;
     const { croppedImage } = this.state;
 
-    console.log("croppedImage",croppedImage); 
-
     if (croppedImage) {
       await this.setState({
         pending: true
       });
 
       window.setTimeout(() => {
-       this.resetToDefaultState(); 
-        if(onchange){
+        this.resetToDefaultState();
+       
+        if (onChange) {
           onChange(croppedImage);
         }
-        if(this.props.onUpdateChange){
-          this.props.onUpdateChange(croppedImage); 
+        if (this.props.onUpdateChange) {
+          this.props.onUpdateChange(croppedImage);
         }
         this.setState({
-            showSuccessalert: true
-        })
+          showSuccessalert: true
+        });
 
-        window.setTimeout(()=>{
-            this.setState({
-                showSuccessalert: false
-            })
-        }, 4000); 
-       
+        window.setTimeout(() => {
+          this.setState({
+            showSuccessalert: false
+          });
+        }, 4000);
       }, 4000);
     }
-
   };
 
   showSuccessalert = () => {
-     return(
-        <div className='alert alert-success success-alert'>
-            Image has Uploaded Successfully!
-        </div>
-     )
-  }
+    return (
+      <div className="alert alert-success success-alert">
+        Image has Uploaded Successfully!
+      </div>
+    );
+  };
 
   renderSpinningCircle = () => {
     const { pending } = this.state;
@@ -118,16 +115,16 @@ class Upload extends Component {
       croppedImage: {},
       imageBase64: "",
       initialImageBase64: "",
-      crop: { }
+      crop: {}
     });
   };
 
   onImageLoaded = image => {
     if (image.naturalWidth < 950 && image.naturalHeight < 720) {
-        console.log('get a life')
+      console.log("get a life");
       this.resetToDefaultState();
       return toast.error("Minium width of an image is 950px and height 720px");
-    }; 
+    }
 
     this.setState({
       crop: makeAspectCrop(
@@ -161,7 +158,13 @@ class Upload extends Component {
   };
 
   render() {
-    const { selectedFile, imageBase64, crop, initialImageBase64, showSuccessalert } = this.state;
+    const {
+      selectedFile,
+      imageBase64,
+      crop,
+      initialImageBase64,
+      showSuccessalert
+    } = this.state;
     return (
       <div className="img-upload-container">
         <label className="img-upload btn btn-secondary">

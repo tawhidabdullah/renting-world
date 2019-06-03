@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "../../../styles/rental/_rentalCreateFormStyle.scss";
 import { createRental } from "../../../actions/rentalAction";
-import ImageUpload from "../../FileUpload/ImageUpload";
 import { Redirect } from "react-router-dom";
 import Upload from "../../FileUpload/test";
 
@@ -10,7 +9,6 @@ class RentalCreate extends Component {
     constructor() {
         super();
         this.state = {
-
             title: "",
             city: "",
             dailyRate: null,

@@ -1,8 +1,58 @@
 import React, { Component } from 'react';
+import RentalCard from "./RentalCard";
+import { deleteRental } from "../../../actions/rentalAction";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { getUserRentals } from "../../../actions/rentalAction";
+import RentalManageCard from "./RentalManageCard";
 import "../../../styles/sass/components/_searchInput.scss"; 
 import "../../../styles/sass/components/Dashboard/_RentalsContent.scss";
 
 class RentalContent extends Component {
+    state = {
+        userRentals: [],
+        errors: [],
+        isFetching: false
+    }
+    componentWillMount() {
+        getUserRentals().then(
+            (userRentals) => { this.setState({ ...this.state, userRentals, isFetching: false }) },
+            (errors) => { this.setState({ ...this.state, errors, isFetching: false }) }
+        );
+    }
+
+    renderManageCard = (rentals) => {
+        return rentals.map((rental, index) => {
+            return <RentalManageCard
+                rentalIndex={index}
+                key={index}
+                rental={rental}
+                deleteRental={this.deleteRentalById}
+            />
+        })
+    }
+
+    deleteRentalById = (rentalId, rentalIndex) => {
+        deleteRental(rentalId).then(() => {
+            this.deleteRentalFromList(rentalIndex);
+        }, (errors) => {
+            // Toast.errors(errors[0].detail); 
+            toast.error(errors[0].detail);
+
+        })
+    };
+
+
+    deleteRentalFromList = (rentalIndex) => {
+        const userRentals = this.state.userRentals.slice();
+        userRentals.splice(rentalIndex, 1);
+
+        this.setState({
+            userRentals
+        })
+    }
+
+
     render() {
         return (
             <div className='bookingsContent'>
@@ -23,25 +73,7 @@ class RentalContent extends Component {
                             </button>
                         </div>
                     </div>
-                    <div class="card_rentals">
-                        <div class="card-thumb">
-                            <img src='https://images.unsplash.com/photo-1558623869-0507000fa875?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='' />
-                        </div>
-                        <div class="card-content">
-                            <div>
-                                <span class="card-date">31 March 2019</span>
-                                <h2 className='card__title'>Bookings Name</h2>
-                                <p className='card__description'>
-                                    Lorem ipsum dolor sit, Vel repudiandae eos provident fugit aliquid atque architecto fugiat a nesciunt aut, ipsa sed tenetur sint eligendi veniam iusto autem numquam? Distinctio!
-                           </p>
-                                <br />
-                                <a href="#" class="card-btn card-btn__default">Go to Rental</a>
-                                <a href="#" class="card-btn card-btn__delete" >Delete</a>
-                                <a href="#" class="card-btn card-btn__edit" >Edit</a>
-                            </div>
-                        </div>
-                    </div>
-           
+                 
                 </div>
             </div>
         )

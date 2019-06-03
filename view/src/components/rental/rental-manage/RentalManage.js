@@ -4,7 +4,7 @@ import { getUserRentals } from "../../../actions/rentalAction";
 import RentalManageCard from "./RentalManageCard";
 import "../../../styles/rental/_rentalManage.scss";
 import { deleteRental } from "../../../actions/rentalAction";
-import { ToastContainer, Toast, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 class RentalManage extends Component {
     state = {

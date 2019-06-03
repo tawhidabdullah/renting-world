@@ -682,7 +682,10 @@ textarea:focus{
     border: 1px solid #3d5170;
 }
 
-.name input[type="halfwidth"] {
+.name input[name="street"],
+.name input[name='city'],
+.name input[name="dailyRate"],
+.name input[name='bedrooms']  {
     float: left;
     width: 49%;
 }
@@ -719,25 +722,24 @@ textarea:focus{
 
 
 
-.name input[name='city'] {
+.name input[name='city'] ,
+.name input[name='dailyRate']{
     margin-right: 2%;
 }
-
-.name input[name="dailRrate"],
-.name input[name="bedrooms"] {
-    float: left;
-    width: 49%;
-    margin-bottom: 1em;
-}
-
-.name input[name="dailRrate"] {
-    margin-right: 2%;
+.name input[name="dailyRate"] {
     margin-top: 1em;
 }
 
+.name input[name="dailyRate"],
+
+.name input[name="bedroms"] {
+    margin-bottom: 1em;
+}
 
 
-.name input[type="fullwidth"] {
+
+
+.name input[name='title'] {
     margin-top: 1em;
     margin-bottom: 1em;
     width: 100%;
