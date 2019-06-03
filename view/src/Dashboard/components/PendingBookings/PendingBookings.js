@@ -1,161 +1,107 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import Spinner from "../../../components/commonFeilds/Spinner";
+import Error from "../../../pages/Error";
+import {
+  getPendingPayments,
+  acceptPayment,
+  declinePayment
+} from "../../../actions/paymentAction";
+import PendingCard from "./PendingCard";
+
 import "../../../styles/sass/components/Dashboard/_pendingBookings.scss";
-export default class PendingBookings extends Component {
-    render() {
-        return (
+class PendingBookings extends Component {
+  state = {
+    pendingPayments: []
+  };
+  componentDidMount() {
+    this.getPendingPayments();
+  }
 
-            <div class="containerPending">
-                <div class="card_pending">
-                    <div class="card_pending-top">
-                        <p class="card_pending-top-description">
-                            Tawhid wants to book
-                            rental for <span className='card_pending-top-bookedDate'>3/5/4 to 5/55/5</span>
-                             cost <span className='card_pending-top-cost'>553$</span>
-                            do you confirm payment ?
-                        </p>
-                    </div>
-                    <div class="options">
-                        <ul class="option-list">
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-check'></i>
-                                </span>
-                                <span class="time-frame">Accept Payment</span>
-                            </li>
-                            <li class="option highlight-blue">
-                                <span class="pill">Pending</span>
-                                <div class="userImage">
-                                    <img src="https://in.bmscdn.com/events/Large/ET00041450.jpg"></img>
-                                </div>
+  getPendingPayments = () => {
+    getPendingPayments()
+      .then(pendingPayments => {
+        return this.setState({ pendingPayments });
+      })
+      .catch(err => console.error(err));
+  };
 
-                                {/* <span class="time-frame">months</span>
-                                <span class="cost">$15/month</span>
-                                <span class="savings">25% Savings</span> */}
-                            </li>
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-times'> </i>
-                                </span>
-                                <span class="time-frame">Decline</span>
-                            </li>
-                        </ul>
-                    </div>
+  renderPayments = payments => {
+    return payments.map((payment, index) => {
+      return (
+        <PendingCard
+          booking={payment.booking}
+          payment={payment}
+          key={index}
+          acceptBtn={this.renderAcceptPaymentButton}
+          declineBtn={this.renderDeclinePaymentButton}
+        />
+      );
+    });
+  };
 
-                </div>
-                <div class="card_pending">
-                    <div class="card_pending-top">
-                        <p class="card_pending-top-description">
-                            Tawhid wants to book
-                            rental for <span className='card_pending-top-bookedDate'>3/5/4 to 5/55/5</span>
-                             cost <span className='card_pending-top-cost'>553$</span>
-                            do you confirm payment ?
-                        </p>
-                    </div>
-                    <div class="options">
-                        <ul class="option-list">
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-check'></i>
-                                </span>
-                                <span class="time-frame">Accept Payment</span>
-                            </li>
-                            <li class="option highlight-blue">
-                                <span class="pill">Pending</span>
-                                <div class="userImage">
-                                    <img src="https://in.bmscdn.com/events/Large/ET00041450.jpg"></img>
-                                </div>
+  executeAcceptPayment = payment => {
+    acceptPayment(payment)
+      .then(status => {
+        this.getPendingPayments();
+      })
+      .catch(err => console.error(err));
+  };
 
-                                {/* <span class="time-frame">months</span>
-                                <span class="cost">$15/month</span>
-                                <span class="savings">25% Savings</span> */}
-                            </li>
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-times'> </i>
-                                </span>
-                                <span class="time-frame">Decline</span>
-                            </li>
-                        </ul>
-                    </div>
+  executeDeclinePayment = payment => {
+    declinePayment(payment)
+      .then(status => {
+        this.getPendingPayments();
+      })
+      .catch(err => console.error(err));
+  };
 
-                </div>
-                <div class="card_pending">
-                    <div class="card_pending-top">
-                        <p class="card_pending-top-description">
-                            Tawhid wants to book
-                            rental for <span className='card_pending-top-bookedDate'>3/5/4 to 5/55/5</span>
-                             cost <span className='card_pending-top-cost'>553$</span>
-                            do you confirm payment ?
-                        </p>
-                    </div>
-                    <div class="options">
-                        <ul class="option-list">
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-check'></i>
-                                </span>
-                                <span class="time-frame">Accept Payment</span>
-                            </li>
-                            <li class="option highlight-blue">
-                                <span class="pill">Pending</span>
-                                <div class="userImage">
-                                    <img src="https://in.bmscdn.com/events/Large/ET00041450.jpg"></img>
-                                </div>
+  renderAcceptPaymentButton = payment => {
+    return (
+      <>
+        <li class="option">
+          <span class="number">
+            <i
+              onClick={() => this.executeAcceptPayment(payment)}
+              className="fa fa-check"
+            />
+          </span>
+          <span class="time-frame">Accept Payment</span>
+        </li>
+      </>
+    );
+  };
 
-                                {/* <span class="time-frame">months</span>
-                                <span class="cost">$15/month</span>
-                                <span class="savings">25% Savings</span> */}
-                            </li>
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-times'> </i>
-                                </span>
-                                <span class="time-frame">Decline</span>
-                            </li>
-                        </ul>
-                    </div>
+  renderDeclinePaymentButton = payment => {
+    return (
+      <li class="option">
+        <span class="number">
+          <i
+            onClick={() => this.executeDeclinePayment(payment)}
+            className="fa fa-times"
+          >
+            {" "}
+          </i>
+        </span>
+        <span class="time-frame">Decline</span>
+      </li>
+    );
+  };
 
-                </div>
-                <div class="card_pending">
-                    <div class="card_pending-top">
-                        <p class="card_pending-top-description">
-                            Tawhid wants to book
-                            rental for <span className='card_pending-top-bookedDate'>3/5/4 to 5/55/5</span>
-                             cost <span className='card_pending-top-cost'>553$</span>
-                            do you confirm payment ?
-                        </p>
-                    </div>
-                    <div class="options">
-                        <ul class="option-list">
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-check'></i>
-                                </span>
-                                <span class="time-frame">Accept Payment</span>
-                            </li>
-                            <li class="option highlight-blue">
-                                <span class="pill">Pending</span>
-                                <div class="userImage">
-                                    <img src="https://in.bmscdn.com/events/Large/ET00041450.jpg"></img>
-                                </div>
-
-                                {/* <span class="time-frame">months</span>
-                                <span class="cost">$15/month</span>
-                                <span class="savings">25% Savings</span> */}
-                            </li>
-                            <li class="option">
-                                <span class="number">
-                                    <i className='fa fa-times'> </i>
-                                </span>
-                                <span class="time-frame">Decline</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-
-            </div>
-
-        )
-    }
+  render() {
+    const { pendingPayments } = this.state;
+    return (
+      <>
+        <div class="create-rental-heading">
+          <p class="page-subtitle">payments and bookings</p>
+          <h2 class="page-title">Pending payments</h2>
+        </div>
+        <div class="containerPending">
+        <Error/> 
+          {/* {pendingPayments.length === 0 ? : this.renderPayments(pendingPayments)} */}
+        </div>
+      </>
+    );
+  }
 }
+
+export default PendingBookings;

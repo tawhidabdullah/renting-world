@@ -5,9 +5,9 @@ const mongooseError = require('../helpers/mongoose');
 const User = require("../models/user")
 
 // IMPORT KEYS 
-const config = require('../config/keys');
-const stripe = require('stripe')(config.stripeSk);
-           
+const config = require('../config/keys');   
+const stripe = require('stripe')(config.stripeSk); 
+            
 
 exports.getPendingPayments = (req, res) => { 
 

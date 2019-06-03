@@ -30,7 +30,7 @@ const BookingModal = (props) => {
                     disabled={disabled}
                     onClick={confirmModal}
                     type='button'
-                    className='btn btn-primary'>Confirm</button>
+                    className='btn btn-primary ml-3'>Confirm</button>
                 <button type='button' onClick={closeModal} className='btn btn-danger'>Cancel</button>
             </div>
         </Modal>

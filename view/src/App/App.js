@@ -118,11 +118,11 @@ class App extends Component {
                   path="/rentals/new"
                   component={RentalCreate}
                 />
-                <Route exact path="/rentals/:id" component={RentalUpdate} />
+                <Route exact path="/rentals/:id" component={RentalDetail} />
                 <Route
                   exact
                   path="/rentals/:id/edit"
-                  component={RentalDetail}
+                  component={RentalUpdate}
                 />
 
                 {/* <Route component={Error} /> */}

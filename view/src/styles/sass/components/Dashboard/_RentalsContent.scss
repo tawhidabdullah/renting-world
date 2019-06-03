@@ -20,14 +20,17 @@
 }
 
 .booking-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
+    background: white;
     margin: 20px;
     padding: 20px;
     border-radius: .625rem;
     box-shadow: 0 2px 0 rgba(90, 97, 105, .11), 0 4px 8px rgba(90, 97, 105, .12), 0 10px 10px rgba(90, 97, 105, .06), 0 7px 70px rgba(90, 97, 105, .1);
+}
+
+.rental_card-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 
@@ -38,6 +41,14 @@
     background: #fff;
     padding: 10px;
     border-bottom: 1px solid #eee;
+
+
+    @media (max-width: 1444px) {
+        width: 100%;
+    }
+
+
+
 
     @media (max-width: 566px) {
         max-height: 200px;
@@ -209,6 +220,9 @@
             @media (max-width: 566px) {
                 margin-left: 10px;
             }
+            @media (max-width: 687px) {
+                margin-top: 10px;
+            }
 
             @media (max-width: 445px) {
                 margin-left: 5px;
@@ -221,6 +235,24 @@
 
         &__edit {
             background-image: linear-gradient(90deg, #d6b33e, #d2e28c);
+            margin-left: 20px;
+
+            @media (max-width: 566px) {
+                margin-left: 10px;
+            }
+
+            @media (max-width: 445px) {
+                margin-left: 5px;
+            }
+
+            @media (max-width: 365px) {
+                margin-top: 5px;
+            }
+        }
+
+        &__booking{
+            border: none;
+            background-image: linear-gradient(90deg, #0f36e4, #3949d8);
             margin-left: 20px;
 
             @media (max-width: 566px) {

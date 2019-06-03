@@ -1,57 +1,71 @@
 import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  fetchUserBookings,
+  updateBooking
+} from "../../../actions/bookingAction";
+import ReviewModal from "../../../components/review/ReviewModal";
+import BookingsCard from "./BookingsCard";
+
+// IMPORT SCSS
 import "../../../styles/sass/components/Dashboard/_bookingsContent.scss";
 import "../../../styles/sass/components/_searchInput.scss";
 
 class BookingsContent extends Component {
   state = {
-    editProduct: false,
-    title: "",
-    desc: "",
-    category: "",
-    price: "",
-    productImage: "",
-    searchInput: ""
+    pendingPayments: []
   };
+  componentDidMount() {
+    this.props.dispatch(fetchUserBookings());
+  }
 
   onMaterialButtonclick = () => {
-
-  };
-
-  componentWillMount() {
-
+    this.props.history.push('/rentals')
   }
 
-  onProductEdit(id, product) {
-    this.setState({
-      title: product.title,
-      desc: product.desc,
-      category: product.category,
-      price: product.price,
-      productImage: product.productImage,
-      editProduct: true
+
+  handleReviewCreated = (review, upadatedBooking) => {
+    const { dispatch } = this.props;
+    const { data: bookings } = this.props.userBookings;
+    const index = bookings.findIndex(booking => {
+      return booking._id === upadatedBooking._id;
+    });
+    upadatedBooking.review = review;
+    bookings[index] = upadatedBooking;
+    dispatch(updateBooking(bookings));
+  };
+
+  renderBookings(bookings) {
+    return bookings.map((booking, index) => {
+      return (
+        <BookingsCard
+          reviewModal={() => (
+            <ReviewModal
+              bookingId={booking._id}
+              hasReview={booking.review}
+              onReviewCreated={review => {
+                this.handleReviewCreated(review, booking);
+              }}
+            />
+          )}
+          booking={booking}
+          key={index}
+        />
+      );
     });
   }
-
-  onProductDelete = id => {
-    this.props.deleteProductAction(id);
-  };
-
-  componentWillUpdate() {
-    // this.props.getProductAction();
-  }
-
-  onSearchInputChange = e => {
-    this.setState({
-      searchInput: e.target.value.substr(0, 20)
-    });
-  };
 
   render() {
+    const { data: bookings, isFetching } = this.props.userBookings;
+
     return (
       <div>
         <div className="containerx">
           <div className="header-wrapper">
-            <div className="title">Here is your All the bookings that your made !</div>
+            <div className="title">
+              Here is your All the bookings that your made !
+            </div>
             <div className="note">
               Total: <span className="focus">250 </span>bookings{" "}
               <span className="focus">Since</span> on Saturday, June 5.
@@ -76,65 +90,7 @@ class BookingsContent extends Component {
             </span>
           </div>
           <div className="content-wrapper">
-            <div className="table-wrapper">
-              <div class="listing-card">
-                <div class="card-wrapper">
-                  <div class="right-column">
-                    <div class="heart-rating">
-                      <span class="__heart"></span>
-                      <span class="__percentage">19,134$</span>
-                    </div>
-                    <button class="action-button">Cancel booking</button>
-                  </div>
-                  <div class="poster">
-                    <img src="https://in.bmscdn.com/events/Large/ET00041450.jpg"></img>
-                  </div>
-                  <div class="movie-info">
-                    <span class="title">Rental Title</span>
-                    <span class="language">category</span>
-                    <ul class="genre">
-                      <li>Jun 12th 19 -  </li>
-                      <li>Jun 14th 19</li>
-                      <li>| 2 days</li>
-                    </ul>
-                    {/* <ul class="tags">
-                      <li>3D</li>
-                      <li>2D</li>
-                    </ul> */}
-                  </div>
-                </div>
-
-              </div>
-              <div class="listing-card">
-                <div class="card-wrapper">
-                  <div class="right-column">
-                    <div class="heart-rating">
-                      <span class="__heart"></span>
-                      <span class="__percentage">19,134$</span>
-                    </div>
-                    <button class="action-button">Cancel Booking</button>
-                  </div>
-                  <div class="poster">
-                    <img src="https://in.bmscdn.com/events/Large/ET00041450.jpg"></img>
-                  </div>
-                  <div class="movie-info">
-                    <span class="title">Rental Title</span>
-                    <span class="language">category</span>
-                    <ul class="genre">
-                      <li>Jun 12th 19 -  </li>
-                      <li>Jun 14th 19</li>
-                      <li>| 2 days</li>
-                    </ul>
-                    {/* <ul class="tags">
-                      <li>3D</li>
-                      <li>2D</li>
-                    </ul> */}
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
+            <div className="table-wrapper">{this.renderBookings(bookings)}</div>
           </div>
         </div>
       </div>
@@ -142,6 +98,10 @@ class BookingsContent extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    userBookings: state.userBookings
+  };
+};
 
-
-export default BookingsContent;
+export default connect(mapStateToProps)(withRouter(BookingsContent));

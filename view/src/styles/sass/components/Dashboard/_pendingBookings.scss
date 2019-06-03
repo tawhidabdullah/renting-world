@@ -5,8 +5,12 @@ $green-highlight: #60E6C0;
 $font-size: 16px;
 
 .containerPending {
+    padding-bottom: 20px;
+    background: white;
     display: flex;
     flex-wrap: wrap;
+    border-radius: .625rem;
+    box-shadow: 0 2px 0 rgba(90, 97, 105, .11), 0 4px 8px rgba(90, 97, 105, .12), 0 10px 10px rgba(90, 97, 105, .06), 0 7px 70px rgba(90, 97, 105, .1);
 }
 
 .card_pending {
@@ -118,7 +122,7 @@ $font-size: 16px;
                 width: 60px;
                 height: 60px;
                 margin-top: 15px;
-                margin-left: 5px;
+               margin: 15px auto 0 20px; 
 
                 img {
                     height: 100%;

@@ -33,7 +33,7 @@ class RentalManageModal extends Component {
             <React.Fragment>
                 <button type='button'
                     onClick={this.openModal}
-                    className='btn btn-secondary'>
+                    className='card-btn card-btn__booking'>
                     Bookings
                       </button>
                 <Modal open={this.state.open}

@@ -1,0 +1,34 @@
+.error-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; 
+  text-align: center; 
+  align-items: center; 
+  justify-content: center; 
+}
+.error-title{
+    text-align: center;
+    margin-top: 20px;
+    color: #3d5170;
+    text-shadow: 0px 2px 0px rgba(150, 150, 150, 1);
+  }
+
+  #err-icon{
+    font-size: 80pt;
+    color: #cacedb;
+    margin-top: 50px;
+    text-shadow: 0px 3px 0px #cacedb;
+    -webkit-transition: 0.5s;
+  }
+  #err-icon:hover{
+    -webkit-transform: scale(1.1);
+    color: #e74c3c;
+    text-shadow: 0px 3px 0px rgba(192, 57, 43, 1);
+  }
+  .error-detail{
+    text-align: center;
+    font-size: 16px;
+    color: rgba(189, 195, 199,1.0);
+    font-weight: 500;
+  }
+  
