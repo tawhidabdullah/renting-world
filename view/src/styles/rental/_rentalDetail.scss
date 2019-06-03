@@ -1,6 +1,7 @@
 @import "../variable.scss"; 
 
 #rentalDetails {
+    font-size: 17px;
     overflow-x: hidden; 
     .upper-section {
         img {
@@ -66,6 +67,7 @@
             }
 
             &-description {
+                font-size: 15px;
                 font-weight: 300;
                 margin-bottom: 30px;
             }
@@ -78,6 +80,7 @@
                 }
 
                 span {
+                    font-size: 15px;
                     display: block;
                     margin-bottom: 15px;
                     font-weight: 300;

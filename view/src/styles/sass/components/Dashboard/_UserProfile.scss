@@ -94,10 +94,15 @@
                 margin-right: 2%;
             }
 
-            .name input[type="fullwidth"] {
+            .name input[name='name'] {
+                margin-bottom: 1em;
+                width: 100%;
+            }
+            .name input[name='address'] {
                 margin-top: 1em;
                 width: 100%;
             }
+
 
             .radio,
             .dropdown,

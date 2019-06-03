@@ -5,52 +5,58 @@ import Upload from "../../FileUpload/test";
 import { fetchRentalImg } from "../../../actions/rentalAction";
 
 class EditableImage extends EditableComponent {
-    handleImageUpload = (image) => {
-        this.setState({
-            value: image
-        }); 
+  handleImageUpload = image => {
+    this.setState({
+      value: image
+    });
 
-        this.update();
-        this.setImgValue(); 
+    this.update();
+    this.setImgValue();
+  };
 
-    }
+  setImgValue = async () => {
+    await fetchRentalImg(this.props.entity._id).then(img => {
+      return this.setState({ isActive: false, value: img });
+    });
+  };
 
-     setImgValue = async () => {
-            await fetchRentalImg(this.props.entity._id).then(img => {
-              return this.setState({ isActive: false, value: img });
-             });
-           }
-  
   render() {
-    
     const { isActive, value } = this.state;
     return (
       <div className="editableImage">
         {!isActive && (
           <>
             {value && <img src={`/${value}`} />}
-            <button
-            style={{marginTop: "5px"}}
+            <i
               onClick={this.enableEdit}
-              className="btn btn-warning btn-editable-image"
-              type="button"
-            >
-              Edit
-            </button>
+              className="fa fa-edit"
+              style={{
+                color: "#aaa",
+                fontSize: "40px",
+                marginLeft: "8px",
+                marginRight: "5px",
+                cursor: "pointer",
+                marginTop: "5px"
+              }}
+            />
           </>
         )}
         {isActive && (
           <>
-            <button
+            <i
+              className="fa fa-times"
               onClick={this.disableEdit}
-              className="btn btn-warning btn-editable btn-editable-image"
-              type="button"
-            >
-              Close
-            </button>
-             <Upload  onUpdateChange={(image)=>this.handleImageUpload(image)}/>
+              style={{
+                color: "red",
+                fontSize: "29px",
+                marginLeft: "8px",
+                marginRight: "5px",
+                marginTop: "10px",
+                cursor: "pointer"
+              }}
+            />
+            <Upload onUpdateChange={image => this.handleImageUpload(image)} />
           </>
-        
         )}
       </div>
     );

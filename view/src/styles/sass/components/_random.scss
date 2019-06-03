@@ -205,7 +205,7 @@
         left: 0;
         height: 100%;
         width: 3px;
-        background: var(--color-primary);
+        background: #007bff;
         transform: scaleY(0);
         transition: transform .2s,
             width .5s cubic-bezier(1, 0, 0, 1) .2s;
@@ -216,11 +216,11 @@
     &__item:hover::before,
     &__item--active::before {
         transform: scaleY(1);
-        width: 7%;
+        width: 2%;
     }
 
     &__item:active::before {
-        background: var(--color-primary-dark);
+        background: #007bff;
     }
 
 
@@ -690,6 +690,7 @@ textarea:focus{
     width: 49%;
 }
 
+
 .addcategory input[name='addCategory'] {
     width: 80%;
     height: 3em;
@@ -728,21 +729,17 @@ textarea:focus{
 }
 .name input[name="dailyRate"] {
     margin-top: 1em;
+}; 
+
+.name input[name="dailyRate"] {
+    margin-top: 1em;
 }
+
 
 .name input[name="dailyRate"],
 
 .name input[name="bedroms"] {
     margin-bottom: 1em;
-}
-
-
-
-
-.name input[name='title'] {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    width: 100%;
 }
 
 .radio,

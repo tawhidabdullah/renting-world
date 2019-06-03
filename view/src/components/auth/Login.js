@@ -29,7 +29,7 @@ class Login extends Component {
   componentWillReceiveProps(nextProps) {
     // it's runs when our components recive new props
     if (nextProps.auth.isAuthenticate) {
-      this.props.history.push("/rentals");
+      this.props.history.push("/dashboard");
     }
     if (nextProps.errors) {
       this.setState({

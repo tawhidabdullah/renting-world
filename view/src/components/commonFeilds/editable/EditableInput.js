@@ -1,74 +1,86 @@
-import React from 'react'; 
+import React from "react";
 import EditableComponent from "./EditableComponent";
 import "../../../styles/rental/_editableComponent.scss";
 
 class EditableInput extends EditableComponent {
+  formatView = value => {
+    const { formatPipe } = this.props;
 
-    formatView = (value) => {
-        const {formatPipe} = this.props; 
+    if (formatPipe) {
+      let formatedValue = value;
+      formatPipe.forEach(pipe => {
+        return (formatedValue = pipe(formatedValue));
+      });
 
-        if(formatPipe){
-            let formatedValue = value; 
-            formatPipe.forEach(pipe => {
-                return formatedValue = pipe(formatedValue); 
-            });
-
-            return formatedValue ; 
-        }; 
-
-        return value; 
+      return formatedValue;
     }
 
-    renderComponentView = () => {
-        const { value, isActive } = this.state;
-        const { className } = this.props;
-        if (isActive) {
-            return (
-                <>
-                    <input
-                        className={`${className} form-control`}
-                        onChange={(e) => this.handleChange(e)}
-                        value={value} />
+    return value;
+  };
 
-                    <button
-                        onClick={this.update}
-                        className='btn btn-success btn-editable'
-                        type='button'>
-                        Save
-                    </button>
-                    <button
-                        onClick={this.disableEdit}
-                        className='btn btn-warning btn-editable'
-                        type='button'>
-                        Close
-                    </button>
-                </>
-            )
-        };
+  renderComponentView = () => {
+    const { value, isActive } = this.state;
+    const { className } = this.props;
+    if (isActive) {
+      return (
+        <>
+          <input
+            className={`${className} form-control`}
+            onChange={e => this.handleChange(e)}
+            value={value}
+          />
 
-        return (
-            <>
-                <span
-                    className={className}>
-                    {this.formatView(value)}
-                </span>
-                <button
-                    onClick={this.enableEdit}
-                    className='btn btn-warning btn-editable'
-                    type='button'>
-                    Edit
-                </button>
-            </>
-        )
-    };
-    
-    render() {
-        return (
-            <div style={this.props.containerStyle} className='editableComponent'>
-                {this.renderComponentView()}
-            </div>
-        )
+          <i
+            onClick={this.update}
+            className="fa fa-check-square"
+            style={{
+              color: "green",
+              fontSize: "23px",
+              marginLeft: "8px",
+              marginRight: "5px",
+              cursor: "pointer"
+            }}
+          />
+           <i
+            onClick={this.disableEdit}
+            className="fa fa-times"
+            style={{
+              color: "red",
+              fontSize: "23px",
+              marginLeft: "8px",
+              marginRight: "5px",
+              cursor: "pointer"
+            }}
+          />
+        </>
+      );
     }
-};
 
-export default EditableInput; 
+    return (
+      <>
+        <span className={className}>{this.formatView(value)}</span>
+        <i
+          onClick={this.enableEdit}
+          className="fa fa-edit"
+          style={{
+            color: "#aaa",
+            fontSize: "20px",
+            marginLeft: "8px",
+            marginRight: "5px",
+            cursor: "pointer",
+          }}
+        />
+      </>
+    );
+  };
+
+  render() {
+    return (
+      <div style={this.props.containerStyle} className="editableComponent">
+        {this.renderComponentView()}
+      </div>
+    );
+  }
+}
+
+export default EditableInput;

@@ -107,7 +107,6 @@ class RentalUpdate extends Component {
               <div className="details-section">
                 <div className="row">
                   <div className="col-md-8">
-                    return (
                     <div className="rental">
                       <label style={{ marginRight: "5px", fontWeight: "bold" }}>
                         Shared
@@ -203,7 +202,6 @@ class RentalUpdate extends Component {
                       <hr />
                       <RentalAssets />
                     </div>
-                    )
                   </div>
                   <div className="col-md-4">
                     {" "}

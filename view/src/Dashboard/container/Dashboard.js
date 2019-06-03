@@ -130,7 +130,7 @@ export default class Dashboard extends Component {
                                     <span class="side-nav__text">Bookings</span>
                                 </a>
                             </li>
-                            <li class={isBookings ?
+                            <li class={isPendings ?
                                 "side-nav__item side-nav__item--active" :
                                 " side-nav__item"}
                                 onClick={this.renderPendingBookings}
