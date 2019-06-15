@@ -162,15 +162,16 @@ class Booking extends React.Component {
                      </Link>}
                 {isAuthenticate && (
                     <>
-                        <div className='form-group'>
+                        <div className='form-group' >
                             <label htmlFor='dates'>Dates</label>
                             <DateRangePicker
+                               
                                 onApply={this.handleDateApply}
                                 isInvalidDate={this.checkInValidDate}
                                 opens='left'
                                 containerStyles={{ display: "block" }}
                             >
-                                <input ref={this.dateRef} id="dates" type='text' className='form-control'></input>
+                                <input  ref={this.dateRef} id="dates" type='text' className='form-control'></input>
                             </DateRangePicker>
                         </div>
                         <div className='form-group'>

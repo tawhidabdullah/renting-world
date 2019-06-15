@@ -9,7 +9,7 @@ const config = require('../config/keys');
 const stripe = require('stripe')(config.stripeSk);  
             
 
-exports.getPendingPayments = (req, res) => { 
+exports.getPendingPayments = (req, res) => {  
 
     const user = req.user.id;
     // find a payment by logged in user ===>> of toUser
