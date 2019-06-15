@@ -158,7 +158,7 @@ class Booking extends React.Component {
                 {!isAuthenticate &&
                     <Link to={{ pathname: '/login' }}
                         className='btn btn-bwm btn-confirm btn-block'>
-                        Login to book place
+                        Login to book Rental
                      </Link>}
                 {isAuthenticate && (
                     <>
@@ -189,7 +189,7 @@ class Booking extends React.Component {
                             onClick={this.confirmBookingProposedData}
                             className='btn btn-bwm btn-confirm btn-block'
                         >
-                            Reserve place now
+                            Reserve Rental now
             </button>
                     </>
                 )}
