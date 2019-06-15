@@ -55,7 +55,7 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="register">
+      <div className="register pt-5">
         <div className="container pt-5">
           <div className="row">
             <div className="col-md-8 m-auto">

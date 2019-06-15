@@ -126,12 +126,9 @@ class Toolbar extends Component {
           <div className="spacer" />
           <div className="toolbar__navigation-items">
             <ul>
-              <li>
-                <a href="/">Books</a>
-              </li>
-              <li>
-                <a href="/">Cars</a>
-              </li>
+            <Link to="/">
+              Rentals
+            </Link>
               {isAuthenticate ? logedInUserLinks : newUserLinks}{" "}
             </ul>
           </div>

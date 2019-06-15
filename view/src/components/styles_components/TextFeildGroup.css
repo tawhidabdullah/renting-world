@@ -2,11 +2,13 @@
   max-width: 600px;
   text-align: center;
   margin: 20px auto;
+  font-size: 16px;
 }
 .form input {
-  border: 0;
+  
+  border: 1px solid #333;
   outline: 0;
-  padding: 1em;
+  padding: 25px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
