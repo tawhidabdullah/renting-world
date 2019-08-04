@@ -111,10 +111,10 @@ exports.createBooking = (req, res) => {
 
 };
 
-
+    
 
 exports.manageBooking = (req, res) => {
-    const user = req.user.id;
+    const user = req.user.id;    
 
     Booking.where({
             user
