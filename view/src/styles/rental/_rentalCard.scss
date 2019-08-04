@@ -6,6 +6,7 @@
     /* SINGLE CARD STYLES*/
     .bwm-card {
         border: none;
+        margin-bottom: 10px;
 
         .card-block {
             padding-top: 8px;
@@ -15,12 +16,19 @@
                 font-weight: 500;
                 font-size: 12px;
                 text-transform: uppercase;
+
+
+                span {
+                    color: #333;
+                    text-transform: capitalize;
+                }
             }
 
             .card-title {
                 font-size: 19px;
                 margin: 3px 0;
-                color: $main-text-grey-color; 
+                color: $main-text-grey-color;
+                text-transform: uppercase;
             }
 
             .card-text {

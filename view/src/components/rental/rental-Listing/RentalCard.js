@@ -12,7 +12,7 @@ const RentalCar = ({rental}) => {
                 <img className='card-img-top' src={`/${image}`} alt=''></img>
                 <div className='card-block'>
                   <h6 className={`card-subtitle ${category}`}>
-                     {rentalType(shared)} {category} &#183; {city} 
+                    <span> {rentalType(shared)} {category} &#183; {city}</span> 
                   </h6>
                   <h4 className='card-title'>{title}</h4>
                   <p className='card-text'>${dailyRate} per Night &#183; Free Cancelation</p>
