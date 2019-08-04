@@ -13,7 +13,7 @@ A Web Application for creating Rentals and booking Rentals!
 * Customer support
 
 
-# key Technologies
+## key Technologies
 * reactjs,redux
 * node,express,mongoDB
 
