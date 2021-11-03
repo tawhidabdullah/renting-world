@@ -38,7 +38,7 @@
     "react-bootstrap-daterangepicker": "^4.1.0",
     "request": "^2.88.0",
     "stripe": "^7.1.0",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
